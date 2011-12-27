@@ -1,0 +1,174 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <ProjectOptions>
+    <Version Value="9"/>
+    <PathDelim Value="\"/>
+    <General>
+      <Flags>
+        <MainUnitHasCreateFormStatements Value="False"/>
+        <MainUnitHasTitleStatement Value="False"/>
+      </Flags>
+      <MainUnit Value="0"/>
+      <ResourceType Value="res"/>
+      <UseXPManifest Value="True"/>
+      <Icon Value="0"/>
+      <ActiveWindowIndexAtStart Value="0"/>
+    </General>
+    <i18n>
+      <EnableI18N LFM="False"/>
+    </i18n>
+    <VersionInfo>
+      <StringTable ProductVersion=""/>
+    </VersionInfo>
+    <BuildModes Count="1" Active="Default">
+      <Item1 Name="Default" Default="True"/>
+    </BuildModes>
+    <PublishOptions>
+      <Version Value="2"/>
+      <IncludeFileFilter Value="*.(pas|pp|inc|lfm|lpr|lrs|lpi|lpk|sh|xml)"/>
+      <ExcludeFileFilter Value="*.(bak|ppu|o|so);*~;backup"/>
+    </PublishOptions>
+    <RunParams>
+      <local>
+        <FormatVersion Value="1"/>
+      </local>
+    </RunParams>
+    <Units Count="3">
+      <Unit0>
+        <Filename Value="database.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="database"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="0"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="2"/>
+        <FoldState Value=" T7FHD T3c084n"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="repository.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Unit1"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="10" Y="3"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="database.db"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit2>
+    </Units>
+    <JumpHistory Count="18" HistoryIndex="17">
+      <Position1>
+        <Filename Value="database.lpr"/>
+        <Caret Line="17" Column="33" TopLine="13"/>
+      </Position1>
+      <Position2>
+        <Filename Value="database.lpr"/>
+        <Caret Line="6" Column="31" TopLine="1"/>
+      </Position2>
+      <Position3>
+        <Filename Value="database.lpr"/>
+        <Caret Line="5" Column="12" TopLine="1"/>
+      </Position3>
+      <Position4>
+        <Filename Value="database.lpr"/>
+        <Caret Line="7" Column="31" TopLine="2"/>
+      </Position4>
+      <Position5>
+        <Filename Value="database.lpr"/>
+        <Caret Line="9" Column="20" TopLine="4"/>
+      </Position5>
+      <Position6>
+        <Filename Value="database.lpr"/>
+        <Caret Line="7" Column="31" TopLine="2"/>
+      </Position6>
+      <Position7>
+        <Filename Value="database.lpr"/>
+        <Caret Line="8" Column="31" TopLine="2"/>
+      </Position7>
+      <Position8>
+        <Filename Value="database.lpr"/>
+        <Caret Line="7" Column="36" TopLine="4"/>
+      </Position8>
+      <Position9>
+        <Filename Value="database.lpr"/>
+        <Caret Line="9" Column="20" TopLine="4"/>
+      </Position9>
+      <Position10>
+        <Filename Value="database.lpr"/>
+        <Caret Line="8" Column="5" TopLine="1"/>
+      </Position10>
+      <Position11>
+        <Filename Value="database.lpr"/>
+        <Caret Line="12" Column="28" TopLine="8"/>
+      </Position11>
+      <Position12>
+        <Filename Value="database.lpr"/>
+        <Caret Line="27" Column="11" TopLine="24"/>
+      </Position12>
+      <Position13>
+        <Filename Value="database.lpr"/>
+        <Caret Line="28" Column="48" TopLine="1"/>
+      </Position13>
+      <Position14>
+        <Filename Value="database.lpr"/>
+        <Caret Line="57" Column="11" TopLine="28"/>
+      </Position14>
+      <Position15>
+        <Filename Value="database.lpr"/>
+        <Caret Line="53" Column="21" TopLine="48"/>
+      </Position15>
+      <Position16>
+        <Filename Value="database.lpr"/>
+        <Caret Line="57" Column="1" TopLine="48"/>
+      </Position16>
+      <Position17>
+        <Filename Value="database.lpr"/>
+        <Caret Line="74" Column="17" TopLine="13"/>
+      </Position17>
+      <Position18>
+        <Filename Value="database.lpr"/>
+        <Caret Line="7" Column="2" TopLine="1"/>
+      </Position18>
+    </JumpHistory>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="9"/>
+    <PathDelim Value="\"/>
+    <Target>
+      <Filename Value="database"/>
+    </Target>
+    <SearchPaths>
+      <IncludeFiles Value="$(ProjOutDir)"/>
+      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+    </SearchPaths>
+    <Other>
+      <CompilerPath Value="$(CompPath)"/>
+    </Other>
+  </CompilerOptions>
+  <Debugging>
+    <Exceptions Count="3">
+      <Item1>
+        <Name Value="EAbort"/>
+      </Item1>
+      <Item2>
+        <Name Value="ECodetoolError"/>
+      </Item2>
+      <Item3>
+        <Name Value="EFOpenError"/>
+      </Item3>
+    </Exceptions>
+  </Debugging>
+</CONFIG>
