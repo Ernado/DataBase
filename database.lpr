@@ -29,7 +29,7 @@ end;
 var
   dataBase:TDataBase;
 
-procedure errorHandle(msg:string, stop=true:boolean);
+procedure errorHandle(msg:string; stop:boolean=true);
 begin
      ClrScr;
      Writeln('ERROR OCCURED');
@@ -41,8 +41,8 @@ end;
 Constructor TdataBase.init(path:string);
 begin
      {$I+}Assign(dataFile,path);{$I-}
-     if (IOResult <> 0) then Halt(-1);
-     if not checkFormat then Halt(-2);
+     if (IOResult <> 0) then errorHandle('IO ERROR on database read');
+     if not checkFormat then errorHandle('DATABASE FORMAT ERROR on database read');
      loadParams;
 end;
 
