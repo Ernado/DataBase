@@ -42,9 +42,9 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="6" Y="135"/>
-        <FoldState Value=" TC7D2 TLa02]73d0821521 T1iX0405]L6k501x"/>
+        <TopLine Value="62"/>
+        <CursorPos X="34" Y="21"/>
+        <FoldState Value=" TC7D2 TLV02]73Y0821113 T1iR04E"/>
         <UsageCount Value="35"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -64,13 +64,13 @@
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="8" Y="17"/>
-        <UsageCount Value="17"/>
+        <CursorPos X="9" Y="1"/>
+        <UsageCount Value="18"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit2>
     </Units>
-    <JumpHistory Count="5" HistoryIndex="4">
+    <JumpHistory Count="7" HistoryIndex="6">
       <Position1>
         <Filename Value="database.pas"/>
         <Caret Line="178" Column="26" TopLine="71"/>
@@ -91,6 +91,14 @@
         <Filename Value="database.pas"/>
         <Caret Line="98" Column="33" TopLine="39"/>
       </Position5>
+      <Position6>
+        <Filename Value="database.db"/>
+        <Caret Line="17" Column="8" TopLine="1"/>
+      </Position6>
+      <Position7>
+        <Filename Value="database.pas"/>
+        <Caret Line="64" Column="1" TopLine="16"/>
+      </Position7>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

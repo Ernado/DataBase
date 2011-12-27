@@ -11,20 +11,15 @@ end;
 
 type TDataBase = object
      dataFile:text;
-     count:byte;
      session:boolean;
-     private
-     _iterator:word;
      public
      constructor init(path:string);
      procedure openSession;
      procedure closeSession;
-     function iterator:word;
      function getUser:Tuser;
      procedure skipToData;
      private
      function checkFormat:boolean;
-     procedure loadParams;
      procedure skipLine;
      function getLine:string;
 end;
@@ -69,7 +64,6 @@ begin
      {$I-}Assign(dataFile,path);
      if (IOResult <> 0) then raiseError('IO ERROR on database read');   {$I+}
      if not checkFormat then raiseError('DATABASE FORMAT ERROR on database read');
-     loadParams;
 end;
 
 {проверяет на сооветствие файла базы данных}
@@ -101,23 +95,6 @@ begin
      if (IOResult <> 0) then raiseError('IO ERROR on session close');
      {$I+}
      session:=false;
-end;
-
-{загружает информацию о базе данных}
-procedure TdataBase.loadParams;
-begin
-     openSession;
-     skipLine;
-     count := value(getLine);
-     _iterator := value(getLine);
-     closeSession;
-end;
-
-{возвращает уникальный идентификатор}
-function TdataBase.iterator:word;
-begin
-     inc(_iterator);
-     iterator:=_iterator;
 end;
 
 {пропускает строку в базе данных}
@@ -160,19 +137,15 @@ end;
 
 {пропускает техническую информацию}
 procedure TdataBase.skipToData;
-var
-   i:byte;
 begin
      if session then raiseError('SESSION ALREADY OPENED ERROR on skip to data');
      openSession;
-     for i:=1 to 3 do skipLine;
+     skipLine;
 end;
 
 begin
 {ChDir('D:\Work\liceum\database');}
 dataBase.init(DBFPATH);
-WriteLn(dataBase.count);
-WriteLn(dataBase.iterator);
 dataBase.skipToData;
 repeat
       user := dataBase.getUser;
