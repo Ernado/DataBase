@@ -1,4 +1,4 @@
-﻿{DataBase v0.1.1}
+﻿{DataBase v0.1.2}
 program PDataBase;
 uses
   crt, errors, helpers, UDataBase{, repository}{, .. };
