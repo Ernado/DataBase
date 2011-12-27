@@ -6,13 +6,9 @@ uses
 const
   DBFPATH = 'database.db';
 
-
 var
   dataBase:TDataBase;
   user:TUser;
-
-
-
 
 begin
 {ChDir('D:\Work\liceum\database');}
@@ -24,4 +20,3 @@ repeat
 until eof(dataBase.dataFile);
 ReadKey;
 end.
-
