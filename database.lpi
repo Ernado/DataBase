@@ -39,10 +39,11 @@
         <Filename Value="database.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="PDataBase"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="29" Y="7"/>
+        <CursorPos X="34" Y="4"/>
         <UsageCount Value="36"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -50,12 +51,10 @@
         <Filename Value="repository.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="Unit1"/>
-        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="10" Y="3"/>
         <UsageCount Value="36"/>
-        <Loaded Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="database.db"/>
@@ -86,8 +85,8 @@
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="13" Y="5"/>
-        <FoldState Value=" TL8015"/>
+        <CursorPos X="17" Y="1"/>
+        <FoldState Value=" TL601D"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
       </Unit4>
@@ -95,11 +94,10 @@
         <Filename Value="udatabase.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="UDataBase"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="7" Y="27"/>
+        <CursorPos X="21" Y="1"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
       </Unit5>
