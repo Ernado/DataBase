@@ -168,15 +168,16 @@ begin
      for i:=1 to 3 do skipLine;
 end;
 
-
 begin
 {ChDir('D:\Work\liceum\database');}
 dataBase.init(DBFPATH);
 WriteLn(dataBase.count);
 WriteLn(dataBase.iterator);
 dataBase.skipToData;
-user := dataBase.getUser;
-WriteLn(user.name);
+repeat
+      user := dataBase.getUser;
+      WriteLn(user.name);
+until eof(dataBase.dataFile);
 ReadKey;
 end.
 
