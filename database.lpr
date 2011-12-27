@@ -24,6 +24,8 @@ type TDataBase = object
      private
      function checkFormat:boolean;
      procedure loadParams;
+     procedure skipLine;
+     function getLine:string;
 end;
 
 var
@@ -32,16 +34,29 @@ var
 procedure errorHandle(msg:string; stop:boolean=true);
 begin
      ClrScr;
-     Writeln('ERROR OCCURED');
+     WriteLn('ERROR OCCURED');
      Writeln(msg);
      ReadKey;
      if stop then halt(-1);
 end;
 
+function value(s:string):integer;
+var
+  _code:integer;
+  _t:string;
+begin
+     val(s,value,_code);
+     if _code <> 0 then
+     begin
+        _t := 'CONVERTING ERROR on converting <' + s + '> to integer';
+        errorHandle(_t);
+     end;
+end;
+
 Constructor TdataBase.init(path:string);
 begin
-     {$I+}Assign(dataFile,path);{$I-}
-     if (IOResult <> 0) then errorHandle('IO ERROR on database read');
+     {$I-}Assign(dataFile,path);
+     if (IOResult <> 0) then errorHandle('IO ERROR on database read');   {$I+}
      if not checkFormat then errorHandle('DATABASE FORMAT ERROR on database read');
      loadParams;
 end;
@@ -68,9 +83,10 @@ end;
 
 procedure TdataBase.loadParams;
 begin
-     ReadLn(dataFile);
-     Read(dataFile,count); ReadLn;
-     Read(dataFile,_iterator); ReadLn;
+     openSession;
+     skipLine;
+     count := value(getLine);
+     _iterator := value(getLine);
      closeSession;
 end;
 
@@ -80,8 +96,24 @@ begin
      iterator:=_iterator;
 end;
 
+procedure TdataBase.skipLine;
 begin
-ChDir('D:\Work\liceum\database');
+     {$I-}
+     ReadLn(dataFile);
+     if (IOResult <> 0) then errorHandle('IO ERROR on skip line');
+     {$I+}
+end;
+
+function TdataBase.getLine:string;
+var
+   _t:string;
+begin
+     ReadLn(dataFile,_t);
+     getLine := _t;
+end;
+
+begin
+{ChDir('D:\Work\liceum\database');}
 dataBase.init(DBFPATH);
 WriteLn(dataBase.count);
 WriteLn(dataBase.iterator);
