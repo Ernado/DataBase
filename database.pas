@@ -31,6 +31,7 @@ end;
 var
   dataBase:TDataBase;
 
+{выводит на экран сообщение об ошибке и завершает программу с кодом }
 procedure errorHandle(msg:string; stop:boolean=true);
 begin
      ClrScr;
@@ -40,6 +41,7 @@ begin
      if stop then halt(-1);
 end;
 
+{конвертирует строку в число с обработкой ошибок}
 function value(s:string):integer;
 var
   _code:integer;
@@ -53,6 +55,7 @@ begin
      end;
 end;
 
+{иницирует базу данных с обработкой ошибок}
 Constructor TdataBase.init(path:string);
 begin
      {$I-}Assign(dataFile,path);
@@ -61,6 +64,7 @@ begin
      loadParams;
 end;
 
+{проверяет на сооветствие файла базы данных}
 function TdataBase.checkFormat:boolean;
 var _t:string;
 begin
@@ -71,16 +75,19 @@ begin
      closeSession;
 end;
 
+{открывает файл на чтение}
 procedure TdataBase.openSession;
 begin
      Reset(dataFile);
 end;
 
+{закрывает файл}
 procedure TdataBase.closeSession;
 begin
      Close(dataFile);
 end;
 
+{загружает информацию о базе данных}
 procedure TdataBase.loadParams;
 begin
      openSession;
@@ -90,6 +97,7 @@ begin
      closeSession;
 end;
 
+{возвращает уникальный идентификатор}
 function TdataBase.iterator:word;
 begin
      inc(_iterator);
@@ -104,6 +112,7 @@ begin
      {$I+}
 end;
 
+{возвращает следующую строку в файле}
 function TdataBase.getLine:string;
 var
    _t:string;
