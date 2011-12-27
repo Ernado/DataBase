@@ -1,7 +1,7 @@
 ﻿{DataBase v0.1.2}
 program PDataBase;
 uses
-  crt, errors, helpers, UDataBase{, repository}{, .. };
+  crt, errors, helpers, UDataBase;
 
 const
   DBFPATH = 'database.db';
