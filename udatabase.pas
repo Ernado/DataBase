@@ -49,7 +49,6 @@ begin
      Reset(dataFile);
      if (IOResult <> 0) then raiseError('IO ERROR on session start');
      {$I+}
-
      session := true;
 end;
 
@@ -79,7 +78,10 @@ function TdataBase.getLine:string;
 var
    _t:string;
 begin
+     {$I-}
      ReadLn(dataFile,_t);
+     if (IOResult <> 0) then raiseError('IO ERROR on get line');
+     {$I+}
      getLine := _t;
 end;
 
