@@ -21,6 +21,7 @@ type TDataBase = object
      procedure closeSession;
      function iterator:word;
      function getUser:Tuser;
+     procedure skipToData;
      private
      function checkFormat:boolean;
      procedure loadParams;
@@ -28,18 +29,20 @@ type TDataBase = object
      function getLine:string;
 end;
 
+
 var
   dataBase:TDataBase;
+  user:TUser;
 
 {выводит на экран сообщение об ошибке и завершает программу с кодом
          msg - сообщение
          stop - завершене программы после отображения ошибки}
-
 procedure raiseError(msg:string; stop:boolean=true);
 begin
      ClrScr;
      WriteLn('RUNTIME ERROR');
      Writeln(msg);
+     WriteLn('PRESS ANY KEY TO CONTINUE');
      ReadKey;
      if stop then halt(-1);
 end;
@@ -71,12 +74,9 @@ end;
 
 {проверяет на сооветствие файла базы данных}
 function TdataBase.checkFormat:boolean;
-var _t:string;
 begin
-     checkFormat:=false;
-     Reset(dataFile);
-     ReadLn(datafile,_t);
-     if (_t='database') then checkFormat:=true;
+     openSession;
+     checkFormat:= getline = 'database';
      closeSession;
 end;
 
@@ -87,7 +87,7 @@ begin
      {$I-}
      Reset(dataFile);
      if (IOResult <> 0) then raiseError('IO ERROR on session start');
-     {$+}
+     {$I+}
 
      session := true;
 end;
@@ -100,6 +100,7 @@ begin
      Close(dataFile);
      if (IOResult <> 0) then raiseError('IO ERROR on session close');
      {$I+}
+     session:=false;
 end;
 
 {загружает информацию о базе данных}
@@ -119,9 +120,10 @@ begin
      iterator:=_iterator;
 end;
 
+{пропускает строку в базе данных}
 procedure TdataBase.skipLine;
 begin
-     if no session then raiseError('NO SESSION ERROR on skip line');
+     if not session then raiseError('NO SESSION ERROR on skip line');
      {$I-}
      ReadLn(dataFile);
      if (IOResult <> 0) then raiseError('IO ERROR on skip line');
@@ -137,7 +139,7 @@ begin
      getLine := _t;
 end;
 
-{вовзращает сущность из базы данных}
+{возращает сущность из базы данных}
 function TdataBase.getUser:TUser;
 begin
      if not session then raiseError('NO SESSION ERROR on getUser');
@@ -156,11 +158,25 @@ begin
      {$I+}
 end;
 
+{пропускает техническую информацию}
+procedure TdataBase.skipToData;
+var
+   i:byte;
+begin
+     if session then raiseError('SESSION ALREADY OPENED ERROR on skip to data');
+     openSession;
+     for i:=1 to 3 do skipLine;
+end;
+
+
 begin
 {ChDir('D:\Work\liceum\database');}
 dataBase.init(DBFPATH);
 WriteLn(dataBase.count);
 WriteLn(dataBase.iterator);
+dataBase.skipToData;
+user := dataBase.getUser;
+WriteLn(user.name);
 ReadKey;
 end.
 
