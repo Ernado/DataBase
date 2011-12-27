@@ -1,4 +1,5 @@
 unit helpers;
+
 interface
 uses errors;
 function value(s:string):integer;
@@ -19,4 +20,3 @@ begin
      end;
 end;
 end.
-

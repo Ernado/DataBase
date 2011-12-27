@@ -4,8 +4,6 @@ interface
 uses crt;
 procedure raiseError(msg:string; stop:boolean=true);
 
-
-
 implementation
 {выводит на экран сообщение об ошибке и завершает программу с кодом
          msg - сообщение
@@ -21,4 +19,3 @@ begin
 end;
 
 end.
-
