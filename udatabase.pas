@@ -31,7 +31,8 @@ Constructor TdataBase.init(path:string);
 begin
      context.Deep('DBINIT');
      {$I-}Assign(dataFile,path);
-     if (IOResult <> 0) then raiseError('IO ERROR');   {$I+}
+     if (IOResult <> 0) then raiseError('IO ERROR');
+     {$I+}
      if not checkFormat then raiseError('DATABASE FORMAT ERROR');
      context.Up;
 end;
