@@ -16,13 +16,13 @@ end;
 
 var context:TContextList;
 
-procedure raiseError(msg:string; stop:boolean=true);
+procedure raiseError(msg:string);
 
 implementation
 {выводит на экран сообщение об ошибке и завершает программу с кодом
          msg - сообщение
          stop - завершене программы после отображения ошибки}
-procedure raiseError(msg:string; stop:boolean=true);
+procedure raiseError(msg:string);
 begin
      ClrScr;
      textColor(12);
@@ -38,7 +38,7 @@ begin
      textColor(8);
      WriteLn('PRESS ANY KEY TO EXIT');
      ReadKey;
-     if stop then halt(-1);
+     halt(10);
 end;
 
 procedure TContextList.Print;
