@@ -12,11 +12,13 @@ var
   _code:integer;
   _t:string;
 begin
+     context.Deep('value');
      val(s,value,_code);
      if _code <> 0 then
      begin
         _t := 'CONVERTING ERROR on converting <' + s + '> to integer';
         raiseError(_t);
      end;
+     context.Up;
 end;
 end.

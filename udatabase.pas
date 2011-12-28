@@ -29,49 +29,59 @@ implementation
            path - путь к базе данных}
 Constructor TdataBase.init(path:string);
 begin
+     context.Deep('DBINIT');
      {$I-}Assign(dataFile,path);
-     if (IOResult <> 0) then raiseError('IO ERROR on database read');   {$I+}
-     if not checkFormat then raiseError('DATABASE FORMAT ERROR on database read');
+     if (IOResult <> 0) then raiseError('IO ERROR');   {$I+}
+     if not checkFormat then raiseError('DATABASE FORMAT ERROR');
+     context.Up;
 end;
 
 {проверяет на сооветствие файла базы данных}
 function TdataBase.checkFormat:boolean;
 begin
+     context.Deep('CheckFormat');
      openSession;
      checkFormat:= getline = 'database';
      closeSession;
+     context.Up;
 end;
 
 {открывает файл на чтение}
 procedure TdataBase.openSession;
 begin
-     if session then raiseError('SESSION ALREADY OPENED on session start');
+     context.Deep('OpenSession');
+     if session then raiseError('SESSION ALREADY OPENED');
      {$I-}
      Reset(dataFile);
-     if (IOResult <> 0) then raiseError('IO ERROR on session start');
+     if (IOResult <> 0) then raiseError('IO ERROR');
      {$I+}
      session := true;
+     context.Up;
 end;
 
 {закрывает сессию}
 procedure TdataBase.closeSession;
 begin
-     if not session then raiseError('NO SESSION TO CLOSE on session close');
+     context.Deep('CloseSession');
+     if not session then raiseError('NO SESSION TO CLOSE');
      {$I-}
      Close(dataFile);
-     if (IOResult <> 0) then raiseError('IO ERROR on session close');
+     if (IOResult <> 0) then raiseError('IO ERROR');
      {$I+}
      session:=false;
+     context.Up;
 end;
 
 {пропускает строку в базе данных}
 procedure TdataBase.skipLine;
 begin
-     if not session then raiseError('NO SESSION ERROR on skip line');
+     context.Deep('SkipLine');
+     if not session then raiseError('NO SESSION ERROR');
      {$I-}
      ReadLn(dataFile);
-     if (IOResult <> 0) then raiseError('IO ERROR on skip line');
+     if (IOResult <> 0) then raiseError('IO ERROR');
      {$I+}
+     context.Up;
 end;
 
 {возвращает следующую строку в файле}
@@ -79,19 +89,22 @@ function TdataBase.getLine:string;
 var
    _t:string;
 begin
+     context.Deep('getLine');
      {$I-}
      ReadLn(dataFile,_t);
-     if (IOResult <> 0) then raiseError('IO ERROR on get line');
+     if (IOResult <> 0) then raiseError('IO ERROR');
      {$I+}
      getLine := _t;
+     context.Up;
 end;
 
 {возращает сущность из базы данных}
 function TdataBase.getUser:TUser;
 begin
-     if not session then raiseError('NO SESSION ERROR on getUser');
+     context.Deep('getUser');
+     if not session then raiseError('NO SESSION ERROR');
      {$I-}
-     if (getLine <> 'user') then raiseError('TYPE ERROR on getUser');
+     if (getLine <> 'user') then raiseError('TYPE ERROR');
      with getUser do
      begin
           name:=getLine;
@@ -100,17 +113,20 @@ begin
           school:=getLine;
           city:=getLine;
      end;
-     if (getLine <> 'enduser') then raiseError('TYPE ERROR on getUser');
-     if (IOResult <> 0) then  raiseError('IO ERROR on getUser');
+     if (getLine <> 'enduser') then raiseError('TYPE ERROR');
+     if (IOResult <> 0) then  raiseError('IO ERROR');
      {$I+}
+     context.Up;
 end;
 
 {пропускает техническую информацию}
 procedure TdataBase.skipToData;
 begin
-     if session then raiseError('SESSION ALREADY OPENED ERROR on skip to data');
+     context.Deep('skipToData');
+     if session then raiseError('SESSION ALREADY OPENED ERROR');
      openSession;
      skipLine;
+     context.Up;
 end;
 
 end.

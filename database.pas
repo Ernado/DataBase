@@ -1,7 +1,7 @@
 ﻿{DataBase v0.1.3}
 program PDataBase;
 uses
-    crt, UDataBase;
+    crt, UDataBase, errors;
 
 const
   DBFPATH = 'database.db';
@@ -12,6 +12,8 @@ var
 
 begin
 {ChDir('D:\Work\liceum\database');}
+context.count:=0;
+context.Deep('Main');
 dataBase.init(DBFPATH);
 dataBase.skipToData;
 repeat
@@ -19,4 +21,5 @@ repeat
       WriteLn(user.name);
 until eof(dataBase.dataFile);
 ReadKey;
+context.Up;
 end.
