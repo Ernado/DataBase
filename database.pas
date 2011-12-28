@@ -17,7 +17,7 @@ context.Deep('Main');
 dataBase.init(DBFPATH);
 dataBase.skipToData;
 repeat
-      user := dataBase.getUser;
+      database.getUser(user);
       WriteLn(user.name);
 until eof(dataBase.dataFile);
 ReadKey;

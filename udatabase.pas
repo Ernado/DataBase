@@ -15,7 +15,7 @@ type TDataBase = object
      constructor init(path:string);
      procedure openSession;
      procedure closeSession;
-     function getUser:Tuser;
+     procedure getUser(var user:Tuser);
      procedure skipToData;
      private
      function checkFormat:boolean;
@@ -99,13 +99,13 @@ begin
 end;
 
 {возращает сущность из базы данных}
-function TdataBase.getUser:TUser;
+procedure TdataBase.getUser(var user:Tuser);
 begin
      context.Deep('getUser');
      if not session then raiseError('NO SESSION ERROR');
      {$I-}
      if (getLine <> 'user') then raiseError('TYPE ERROR');
-     with getUser do
+     with user do
      begin
           name:=getLine;
           surname:=getLine;
