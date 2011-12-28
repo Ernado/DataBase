@@ -1,7 +1,7 @@
-﻿{DataBase v0.1.5}
+{DataBase v0.1.5}
 program PDataBase;
 uses
-    crt, UDataBase, errors, menus;
+    crt, UDB, errors, menus;
 
 const
   DBFPATH = 'database.db';
