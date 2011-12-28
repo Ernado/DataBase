@@ -11,6 +11,8 @@ var
   user:TUser;
 
 begin
+WriteLn('Трололо');
+readkey;
 {ChDir('D:\Work\liceum\database');}
 context.count:=0;
 context.Deep('Main');
