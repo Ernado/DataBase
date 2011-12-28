@@ -4,7 +4,7 @@ interface
 uses
   crt, errors, helpers;
 
-type Tuser = record
+type Tuser = object
   name, surname, school, city, dob: string;
 end;
 
