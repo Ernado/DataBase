@@ -1,20 +1,21 @@
+{Menus 0.1.2 by Razumov}
 unit menus;
-
 
 interface
 uses errors, lists, helpers, crt, localization;
-
-
 type TMenu = object
      buttons:TStringList;
      code:byte;
      focus:byte;
      online:boolean;
+     procedure MainMenu;
+     private
      function Show:byte;
      function ShowInput:string;
 end;
 
 implementation
+
 function TMenu.Show:byte;
 var
   c:char;
@@ -25,6 +26,8 @@ begin
   focus := 1; online:=true; {init}
   repeat
         {render}
+        textColor(white);
+        WriteLn(S_PROGRAMNAME);
         for i:=1 to buttons.count do
         begin
              textColor(7);
