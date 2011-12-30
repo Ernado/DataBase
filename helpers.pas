@@ -2,13 +2,15 @@
 unit helpers;
 
 interface
-uses errors;
+uses errors,crt;
 
 type TPoint = record
      x,y:integer;
 end;
 
 function value(s:string):integer;
+
+function fitString(s:string;n:word):string;
 
 implementation
 {конвертирует строку в число с обработкой ошибок
@@ -29,4 +31,29 @@ begin
      value:=_value;
      context.Up;
 end;
+
+function fitString(s:string;n:word):string;
+var
+  l:byte;
+  _e:string;
+  i:word;
+begin
+  context.Deep('fitString');
+  l:=length(s);
+
+  if (n<l) then
+  begin
+     str(n,_e);
+     _e:='CANT FIT <'+s+ '> TO '+_e+' CHARS';
+     raiseError(_e);
+  end;
+
+  dec(n,l);
+  for i:=1 to n do begin
+      s:=' '+s;
+  end;
+  fitString:=s;
+  context.Up;
+end;
+
 end.
