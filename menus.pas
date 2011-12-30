@@ -11,7 +11,7 @@ type TMenu = object
      procedure MainMenu;
      private
      function Show:byte;
-     function ShowInput:string;
+     function ShowInput(msg:string):string;
 end;
 
 implementation
@@ -51,11 +51,20 @@ begin
   context.Up;
 end;
 
-function TMenu.ShowInput:string;
+function TMenu.ShowInput(msg:string):string;
+var
+  _t:string;
 begin
   context.Deep('ShowInput');
-  raiseError('NotImplemented');
-  ShowInput:=0;
+  {render}
+  textColor(white);
+  WriteLn(S_PROGRAMNAME);
+  textColor(7);
+  WriteLn(msg);
+  TextColor(white);
+  TextBackGround(8);
+  ReadLn(_t);
+  ShowInpit:=_t;
   context.Up;
 end;
 
