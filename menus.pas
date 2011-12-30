@@ -12,6 +12,7 @@ type TMenu = object
      private
      function Show:byte;
      function ShowInput(msg:string):string;
+     procedure ChangeMode
 end;
 
 implementation
