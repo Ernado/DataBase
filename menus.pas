@@ -42,7 +42,6 @@ begin
         textColor(white);
         WriteLn(S_PROGRAMNAME);
         if (msg<>'') then WriteLn(msg);
-        WriteLn(msg);
         for i:=1 to buttons.count do
         begin
              textColor(TEXT_COLOR);
@@ -58,8 +57,8 @@ begin
         {input}
         c:=ReadKey;
         case c of
-             #72: if (focus = buttons.count) then focus := 1 else inc(focus);
-             #80: if (focus = 1) then focus := buttons.count else dec(focus);
+             #80: if (focus = buttons.count) then focus := 1 else inc(focus);
+             #72: if (focus = 1) then focus := buttons.count else dec(focus);
              #13: begin online:=false; Show:=focus; end;
              #8 : begin online:=false; Show:=0; end;
         end;
