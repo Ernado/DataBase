@@ -26,8 +26,8 @@ end;
 
 implementation
 
-{╨╕╨╜╨╕╤Ж╨╕╤А╤Г╨╡╤В ╨▒╨░╨╖╤Г ╨┤╨░╨╜╨╜╤Л╤Е ╤Б ╨╛╨▒╤А╨░╨▒╨╛╤В╨║╨╛╨╣ ╨╛╤И╨╕╨▒╨╛╨║
-           path - ╨┐╤Г╤В╤М ╨║ ╨▒╨░╨╖╨╡ ╨┤╨░╨╜╨╜╤Л╤Е}
+{иницирует базу данных с обработкой ошибок
+           path - путь к базе данных}
 Constructor TdataBase.init(path:string);
 begin
      context.Deep('DBINIT');
@@ -38,7 +38,7 @@ begin
      context.Up;
 end;
 
-{╨┐╤А╨╛╨▓╨╡╤А╤П╨╡╤В ╨╜╨░ ╤Б╨╛╨╛╨▓╨╡╤В╤Б╤В╨▓╨╕╨╡ ╤Д╨░╨╣╨╗╨░ ╨▒╨░╨╖╤Л ╨┤╨░╨╜╨╜╤Л╤Е}
+{проверяет на сооветствие файла базы данных}
 function TdataBase.checkFormat:boolean;
 begin
      context.Deep('CheckFormat');
@@ -48,7 +48,7 @@ begin
      context.Up;
 end;
 
-{╨╛╤В╨║╤А╤Л╨▓╨░╨╡╤В ╤Д╨░╨╣╨╗ ╨╜╨░ ╤З╤В╨╡╨╜╨╕╨╡}
+{открывает файл на чтение}
 procedure TdataBase.openSession;
 begin
      context.Deep('OpenSession');
@@ -61,7 +61,7 @@ begin
      context.Up;
 end;
 
-{╨╖╨░╨║╤А╤Л╨▓╨░╨╡╤В ╤Б╨╡╤Б╤Б╨╕╤О}
+{закрывает сессию}
 procedure TdataBase.closeSession;
 begin
      context.Deep('CloseSession');
@@ -74,7 +74,7 @@ begin
      context.Up;
 end;
 
-{╨┐╤А╨╛╨┐╤Г╤Б╨║╨░╨╡╤В ╤Б╤В╤А╨╛╨║╤Г ╨▓ ╨▒╨░╨╖╨╡ ╨┤╨░╨╜╨╜╤Л╤Е}
+{пропускает строку в базе данных}
 procedure TdataBase.skipLine;
 begin
      context.Deep('SkipLine');
@@ -86,7 +86,7 @@ begin
      context.Up;
 end;
 
-{╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В ╤Б╨╗╨╡╨┤╤Г╤О╤Й╤Г╤О ╤Б╤В╤А╨╛╨║╤Г ╨▓ ╤Д╨░╨╣╨╗╨╡}
+{возвращает следующую строку в файле}
 function TdataBase.getLine:string;
 var
    _t:string;
@@ -100,7 +100,7 @@ begin
      context.Up;
 end;
 
-{╨▓╨╛╨╖╤А╨░╤Й╨░╨╡╤В ╤Б╤Г╤Й╨╜╨╛╤Б╤В╤М ╨╕╨╖ ╨▒╨░╨╖╤Л ╨┤╨░╨╜╨╜╤Л╤Е}
+{возращает сущность из базы данных}
 procedure TdataBase.getUser(var user:Tuser);
 begin
      context.Deep('getUser');
@@ -121,7 +121,7 @@ begin
      context.Up;
 end;
 
-{╨┐╤А╨╛╨┐╤Г╤Б╨║╨░╨╡╤В ╤В╨╡╤Е╨╜╨╕╤З╨╡╤Б╨║╤Г╤О ╨╕╨╜╤Д╨╛╤А╨╝╨░╤Ж╨╕╤О}
+{пропускает техническую информацию}
 procedure TdataBase.skipToData;
 begin
      context.Deep('skipToData');
