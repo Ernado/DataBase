@@ -5,8 +5,22 @@ interface
 uses
   crt, errors, helpers;
 
-type Tuser = object
-  name, surname, school, city, dob: string;
+const
+  MAXIMUM_USER = 5;
+
+type TUser = object
+  name, surname, school, city:string;
+  dob: string[10];
+  procedure Print;
+end;
+
+type TUserArray = object
+  users:array [1..MAXIMUM_USER] of TUser;
+  count:byte;
+  constructor Init;
+  procedure Get(i:byte;var u:TUser);
+  procedure Add(u:TUser);
+  procedure Delete(i:byte);
 end;
 
 type TDataBase = object
@@ -25,6 +39,44 @@ type TDataBase = object
 end;
 
 implementation
+
+constructor TUserArray.Init;
+begin
+     count:=0;
+end;
+
+procedure TUser.Print;
+begin
+     WriteLn(fitString(name,11),'|',
+             fitString(surname,11),'|',
+             fitString(dob,10),'|',
+             fitString(city,11),'|',
+             fitString(school,20),'|');
+end;
+
+procedure TUserArray.Add(u:TUser);
+begin
+     Context.Deep('TUserArray.Add');
+     if (count+1) > MAXIMUM_USER then raiseError('ERROR STACK OVERFLOW');
+     inc(count);
+     users[count]:=u;
+     Context.Up;
+end;
+
+procedure TUserArray.Delete (i:byte);
+begin
+     Context.Deep('TUserArray.Delete');
+     raiseError('NotImplemented ERROR');
+     Context.Up;
+end;
+
+procedure TUserArray.Get(i:byte; var u:TUser);
+begin
+     Context.Deep('TUserArray.Get');
+     if (i<1) or (i>count) then raiseError('OUT OF BOUNDS ERROR');
+     u:=users[i];
+     Context.Up;
+end;
 
 {иницирует базу данных с обработкой ошибок
            path - путь к базе данных}
