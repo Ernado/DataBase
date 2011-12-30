@@ -45,7 +45,7 @@ begin
              #72: if (focus = buttons.count) then focus := 1 else inc(focus);
              #80: if (focus = 1) then focus := buttons.count else dec(focus);
              #13: begin online:=false; show:=focus; end;
-             #8: begin online:=false; show:=0; end;
+             #8 : begin online:=false; show:=0; end;
         end;
   until not online;
   context.Up;
@@ -61,6 +61,8 @@ begin
   WriteLn(S_PROGRAMNAME);
   textColor(7);
   WriteLn(msg);
+
+  {input}
   TextColor(white);
   TextBackGround(8);
   ReadLn(_t);
