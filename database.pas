@@ -16,9 +16,27 @@ context.count:=0;
 context.Deep('Main');
 dataBase.init(DBFPATH);
 dataBase.skipToData;
+with user do
+begin
+  name:='Имя';
+  surname:='Фамилия';
+  dob:='Дата рожд.';
+  city:='Город';
+  school:='Учебное заведение';
+end;
+user.Print;
+with user do
+begin
+  name:='===========';
+  surname:='===========';
+  dob:='==========';
+  city:='===========';
+  school:='====================';
+end;
+user.Print;
 repeat
       database.getUser(user);
-      WriteLn(user.name);
+      user.Print;
 until eof(dataBase.dataFile);
 ReadKey;
 MainMenu;
