@@ -2,7 +2,7 @@
 unit menus;
 
 interface
-uses errors, lists, crt, localization;
+uses errors, lists, crt, locale;
 type TMenu = object
      buttons:TStringList;
      code:byte;
