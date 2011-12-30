@@ -1,4 +1,4 @@
-{DataBase v0.1.5}
+{DataBase v0.1.6}
 program PDataBase;
 uses
     crt, UDB, errors, menus;
@@ -9,10 +9,9 @@ const
 var
   dataBase:TDataBase;
   user:TUser;
+  menu:TMenu;
 
 begin
-WriteLn('Трололо');
-readkey;
 {ChDir('D:\Work\liceum\database');}
 context.count:=0;
 context.Deep('Main');

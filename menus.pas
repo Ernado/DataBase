@@ -2,7 +2,8 @@ unit menus;
 
 
 interface
-uses errors, lists, helpers, crt;
+uses errors, lists, helpers, crt, localization;
+
 
 type TMenu = object
      buttons:TStringList;
@@ -10,6 +11,7 @@ type TMenu = object
      focus:byte;
      online:boolean;
      function Show:byte;
+     function ShowInput:string;
 end;
 
 implementation
@@ -20,7 +22,9 @@ var
 begin
   context.Deep('MenuShow');
   if buttons.count=0 then raiseError('NO BUTTONTS IN MENU');
+  focus := 1; online:=true; {init}
   repeat
+        {render}
         for i:=1 to buttons.count do
         begin
              textColor(7);
@@ -31,8 +35,25 @@ begin
                   TextBackGround(8);
              end;
         end;
+
+        {input}
+        c:=ReadKey;
+        case c of
+             #72: if (focus = buttons.count) then focus := 1 else inc(focus);
+             #80: if (focus = 1) then focus := buttons.count else dec(focus);
+             #13: begin online:=false; show:=focus; end;
+             #8: begin online:=false; show:=0; end;
+        end;
   until not online;
   context.Up;
 end;
+
+function TMenu.ShowInput:string;
+begin
+  context.Deep('ShowInput');
+  raiseError('NotImplemented');
+  context.Up;
+end;
+
 end.
 
