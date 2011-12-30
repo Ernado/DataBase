@@ -13,6 +13,7 @@ type TStringList = object
      constructor Init;
      procedure Add(s:string);
      procedure Delete(i:byte);
+     function Get(i:byte):string;
 end;
 
 implementation
@@ -20,6 +21,14 @@ implementation
 constructor TStringList.Init;
 begin
      count :=0;
+end;
+
+function TStringList.Get(i:byte):string;
+begin
+     context.Deep('TStrList.Get');
+     if (i<1) or (i>count) then raiseError('ERROR INDEX OUT OF BOUNDS');
+     Get:=sArray[i];
+     context.Up;
 end;
 
 procedure TStringList.Add(s:string);
