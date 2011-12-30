@@ -3,6 +3,11 @@ unit helpers;
 
 interface
 uses errors;
+
+type TPoint = record;
+     x,y:integer;
+end;
+
 function value(s:string):integer;
 
 implementation
@@ -24,4 +29,5 @@ begin
      value:=_value;
      context.Up;
 end;
+
 end.
