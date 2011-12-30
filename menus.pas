@@ -66,7 +66,7 @@ begin
   TextColor(white);
   TextBackGround(8);
   ReadLn(_t);
-  ShowInpit:=_t;
+  ShowInput:=_t;
   context.Up;
 end;
 
