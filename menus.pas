@@ -1,4 +1,4 @@
-{Menus 0.1.5 by Razumov}
+{Menus 0.1.7 by Razumov}
 unit menus;
 
 interface
