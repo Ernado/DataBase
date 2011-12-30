@@ -1,19 +1,20 @@
-{Menus 0.1.3 by Razumov}
+{Menus 0.1.4 by Razumov}
 unit menus;
 
 interface
-uses errors, lists, crt, localization{, graph};
+uses errors, lists, crt, localization, helpers{, graph};
 type TMenu = object
      buttons:TStringList;
      code:byte;
      focus:byte;
      online:boolean;
+     msg:string;
      procedure MainMenu;
      private
      procedure Render;
      function ShowG;
      function Show:byte;
-     function ShowInput(msg:string):string;
+     function ShowInput:string;
      procedure ChangeMode;
 end;
 
@@ -31,6 +32,7 @@ begin
         {render}
         textColor(white);
         WriteLn(S_PROGRAMNAME);
+        WriteLn(msg);
         for i:=1 to buttons.count do
         begin
              textColor(7);
@@ -54,7 +56,7 @@ begin
   context.Up;
 end;
 
-function TMenu.ShowInput(msg:string):string;
+function TMenu.ShowInput:string;
 var
   _t:string;
 begin
@@ -73,7 +75,9 @@ begin
   context.Up;
 end;
 
-procedure TM
+procedure TMenu.Render;
+begin
+end;
 
 procedure TMenu.MainMenu;
 begin
