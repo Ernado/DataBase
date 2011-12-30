@@ -29,9 +29,4 @@ begin
      value:=_value;
      context.Up;
 end;
-<<<<<<< HEAD
 end.
-=======
-
-end.
->>>>>>> origin/master
