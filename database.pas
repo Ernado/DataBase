@@ -21,5 +21,6 @@ repeat
       WriteLn(user.name);
 until eof(dataBase.dataFile);
 ReadKey;
+MainMenu;
 context.Up;
 end.
