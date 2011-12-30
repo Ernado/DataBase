@@ -38,6 +38,7 @@ begin
   focus := 1; online:=true; {init}
   repeat
         {render}
+        ClrScr;
         textColor(white);
         WriteLn(S_PROGRAMNAME);
         WriteLn(msg);
@@ -50,8 +51,9 @@ begin
                   TextColor(TEXT_COLOR);
                   TextBackGround(FOCUS_COLOR);
              end;
+             WriteLn(buttons.Get(i));
         end;
-
+        TextBackGround(0);
         {input}
         c:=ReadKey;
         case c of
@@ -102,6 +104,14 @@ var
   menu:TMenu;
 begin
   context.Deep('MainMenu');
+  with menu.buttons do begin
+       Add(S_SEARCH);
+       Add(S_DELETE);
+       Add(S_ADD);
+  end;
+  menu.msg:=S_MAINMSG;
+
+  menu.Show;
   raiseError('NotImplemented');
   context.Up;
 end;
