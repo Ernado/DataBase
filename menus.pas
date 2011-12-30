@@ -10,14 +10,16 @@ type TMenu = object
      online:boolean;
      procedure MainMenu;
      private
-     function Render:byte;
-     function RenderInput(msg:string):string;
+     procedure Render;
+     function ShowG;
+     function Show:byte;
+     function ShowInput(msg:string):string;
      procedure ChangeMode;
 end;
 
 implementation
 
-function TMenu.Render:byte;
+function TMenu.Show:byte;
 var
   c:char;
   i:byte;
@@ -45,8 +47,8 @@ begin
         case c of
              #72: if (focus = buttons.count) then focus := 1 else inc(focus);
              #80: if (focus = 1) then focus := buttons.count else dec(focus);
-             #13: begin online:=false; Render:=focus; end;
-             #8 : begin online:=false; Render:=0; end;
+             #13: begin online:=false; Show:=focus; end;
+             #8 : begin online:=false; Show:=0; end;
         end;
   until not online;
   context.Up;
