@@ -1,7 +1,9 @@
+{Errors 1.0.10 by Razumov}
 unit errors;
 
 interface
 uses crt;
+
 const MAXIMUM_CONTEXT = 10;
 
 type TStringErrorArray = array [1..MAXIMUM_CONTEXT] of string;

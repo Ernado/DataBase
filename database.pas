@@ -1,4 +1,4 @@
-{DataBase v0.1.6}
+{DataBase v0.1.6 by Razumov}
 program PDataBase;
 uses
     crt, UDB, errors, menus;
