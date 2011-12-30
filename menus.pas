@@ -120,8 +120,8 @@ begin
 
   {logic}
   case code of
-
-  raiseError('NotImplemented');
+       1..3:raiseError('NotImplemented');
+  end;
   context.Up;
 end;
 
