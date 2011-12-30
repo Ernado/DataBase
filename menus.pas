@@ -1,8 +1,8 @@
-{Menus 0.1.2 by Razumov}
+{Menus 0.1.3 by Razumov}
 unit menus;
 
 interface
-uses errors, lists, helpers, crt, localization;
+uses errors, lists, crt, localization;
 type TMenu = object
      buttons:TStringList;
      code:byte;
@@ -55,6 +55,14 @@ function TMenu.ShowInput:string;
 begin
   context.Deep('ShowInput');
   raiseError('NotImplemented');
+  ShowInput:=0;
+  context.Up;
+end;
+
+procedure TMenu.MainMenu;
+begin
+  context.Deep('ShowInput');
+    raiseError('NotImplemented');
   context.Up;
 end;
 
