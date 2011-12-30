@@ -1,7 +1,7 @@
 {DataBase v0.1.6 by Razumov}
 program PDataBase;
 uses
-    crt, UDB;
+    crt, UDB, errors;
 
 const
   DBFPATH = 'database.db';
@@ -9,7 +9,6 @@ const
 var
   dataBase:TDataBase;
   user:TUser;
-  menu:TMenu;
 
 begin
 {ChDir('D:\Work\liceum\database');}
