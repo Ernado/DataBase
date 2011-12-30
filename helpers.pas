@@ -1,4 +1,4 @@
-{Helpers 0.1.1 by Razumov}
+{Helpers 0.1.2 by Razumov}
 unit helpers;
 
 interface
@@ -18,7 +18,7 @@ begin
      val(s,_value,_code);
      if _code <> 0 then
      begin
-        _t := 'CONVERTING ERROR on converting <' + s + '> to integer';
+        _t := 'CONVERTING ERROR (<' + s + '> to integer)';
         raiseError(_t);
      end;
      value:=_value;
