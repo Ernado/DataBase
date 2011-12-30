@@ -3,6 +3,12 @@ unit menus;
 
 interface
 uses errors, lists, crt, localization, helpers{, graph};
+
+const
+  BUTTON_COLOR = 7;
+  TEXT_COLOR = 0;
+  FOCUS_COLOR = 9;
+
 type TMenu = object
      buttons:TStringList;
      code:byte;
@@ -35,12 +41,12 @@ begin
         WriteLn(msg);
         for i:=1 to buttons.count do
         begin
-             textColor(7);
-             TextBackGround(0);
+             textColor(TEXT_COLOR);
+             TextBackGround(BUTTON_COLOR);
              if (i=focus) then
              begin
-                  TextColor(white);
-                  TextBackGround(8);
+                  TextColor(TEXT_COLOR);
+                  TextBackGround(FOCUS_COLOR);
              end;
         end;
 
@@ -81,7 +87,7 @@ end;
 
 procedure TMenu.MainMenu;
 begin
-  context.Deep('ShowInput');
+  context.Deep('MainMenu');
   raiseError('NotImplemented');
   context.Up;
 end;
