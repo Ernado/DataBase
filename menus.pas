@@ -10,13 +10,13 @@ type TMenu = object
      online:boolean;
      procedure MainMenu;
      private
-     function Show:byte;
+     function Show(msg:string):byte;
      function ShowInput(msg:string):string;
 end;
 
 implementation
 
-function TMenu.Show:byte;
+function TMenu.Show(msg):byte;
 var
   c:char;
   i:byte;
@@ -28,6 +28,7 @@ begin
         {render}
         textColor(white);
         WriteLn(S_PROGRAMNAME);
+        if (msg<>'') then WriteLn(msg);
         for i:=1 to buttons.count do
         begin
              textColor(7);
