@@ -4,7 +4,7 @@ unit helpers;
 interface
 uses errors;
 
-type TPoint = record;
+type TPoint = record
      x,y:integer;
 end;
 
