@@ -104,6 +104,7 @@ var
   menu:TMenu;
   code:byte;
 begin
+  {init}
   context.Deep('MainMenu');
   with menu.buttons do begin
        Init;
@@ -113,7 +114,11 @@ begin
        Add(s_EXIT);
   end;
   menu.msg:=S_MAINMSG;
+
+  {render}
   code := menu.Show;
+
+  {logic}
   case code of
 
   raiseError('NotImplemented');
