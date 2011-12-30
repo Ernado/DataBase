@@ -2,10 +2,7 @@
 unit menus;
 
 interface
-<<<<<<< HEAD
-uses errors, lists, crt, locale;
-=======
-uses errors, lists, crt, localization, helpers{, graph};
+uses errors, lists, crt, locale, helpers{, graph};
 
 const
   BUTTON_COLOR = 7;
@@ -13,7 +10,6 @@ const
   FOCUS_COLOR = 9;
 
 
->>>>>>> origin/master
 type TMenu = object
      buttons:TStringList;
      code:byte;
@@ -21,23 +17,18 @@ type TMenu = object
      online:boolean;
      msg:string;
      private
-<<<<<<< HEAD
-     function Show(msg:string):byte;
-     function ShowInput(msg:string):string;
-=======
      procedure Render;
      function ShowG:byte;
      function Show:byte;
      function ShowInput:string;
      {procedure ChangeMode;    }
->>>>>>> origin/master
 end;
 
 procedure MainMenu;
 
 implementation
 
-function TMenu.Show(msg):byte;
+function TMenu.Show:byte;
 var
   c:char;
   i:byte;
@@ -50,11 +41,8 @@ begin
         ClrScr;
         textColor(white);
         WriteLn(S_PROGRAMNAME);
-<<<<<<< HEAD
         if (msg<>'') then WriteLn(msg);
-=======
         WriteLn(msg);
->>>>>>> origin/master
         for i:=1 to buttons.count do
         begin
              textColor(TEXT_COLOR);
