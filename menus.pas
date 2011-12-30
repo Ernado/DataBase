@@ -1,4 +1,4 @@
-{Menus 0.1.4 by Razumov}
+{Menus 0.1.5 by Razumov}
 unit menus;
 
 interface
@@ -9,20 +9,22 @@ const
   TEXT_COLOR = 0;
   FOCUS_COLOR = 9;
 
+
 type TMenu = object
      buttons:TStringList;
      code:byte;
      focus:byte;
      online:boolean;
      msg:string;
-     procedure MainMenu;
      private
      procedure Render;
-     function ShowG;
+     function ShowG:byte;
      function Show:byte;
      function ShowInput:string;
-     procedure ChangeMode;
+     {procedure ChangeMode;    }
 end;
+
+procedure MainMenu;
 
 implementation
 
@@ -83,9 +85,21 @@ end;
 
 procedure TMenu.Render;
 begin
+  context.Deep('Render');
+  raiseError('NotImplemented');
+  context.Up;
 end;
 
-procedure TMenu.MainMenu;
+function TMenu.ShowG:byte;
+begin
+  context.Deep('ShowG');
+  raiseError('NotImplemented');
+  context.Up;
+end;
+
+procedure MainMenu;
+var
+  menu:TMenu;
 begin
   context.Deep('MainMenu');
   raiseError('NotImplemented');
