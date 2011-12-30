@@ -4,8 +4,8 @@ unit locale;
 interface
 const
   S_PROGRAMNAME = 'DataBase';
-  S_EXIT = '╨Т╤Л╤Е╨╛╨┤';
-  S_SEARCH = '╨Я╨╛╨╕╤Б╨║';
+  S_EXIT = 'Выход';
+  S_SEARCH = 'Поиск';
 
 implementation
 
