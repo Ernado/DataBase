@@ -1,4 +1,4 @@
-{Lists 1.0.4 by razumov}
+{Lists 1.0.4 by Razumov}
 unit lists;
 
 interface
