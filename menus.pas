@@ -2,7 +2,7 @@
 unit menus;
 
 interface
-uses errors, lists, crt, locale, helpers{, graph};
+uses errors, lists, crt, locale, helpers, graph;
 
 const
   BUTTON_COLOR = 7;
@@ -102,16 +102,20 @@ end;
 procedure MainMenu;
 var
   menu:TMenu;
+  code:byte;
 begin
   context.Deep('MainMenu');
   with menu.buttons do begin
+       Init;
        Add(S_SEARCH);
        Add(S_DELETE);
        Add(S_ADD);
+       Add(s_EXIT);
   end;
   menu.msg:=S_MAINMSG;
+  code := menu.Show;
+  case code of
 
-  menu.Show;
   raiseError('NotImplemented');
   context.Up;
 end;
