@@ -1,7 +1,7 @@
 {DataBase v0.1.6 by Razumov}
 program PDataBase;
 uses
-    crt, UDB, errors, menus;
+    crt, UDB;
 
 const
   DBFPATH = 'database.db';
