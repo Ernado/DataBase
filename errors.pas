@@ -27,6 +27,7 @@ implementation
 procedure raiseError(msg:string);
 begin
      ClrScr;
+     TextBackGround(0);
      textColor(12);
      WriteLn('DATABASE APPLICATION CRASHED');
      WriteLn('RUNTIME ERROR');
