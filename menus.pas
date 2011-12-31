@@ -8,6 +8,7 @@ const
   BUTTON_COLOR = 7;
   TEXT_COLOR = 0;
   FOCUS_COLOR = 9;
+  BL = 20;
 
 type TMenu = object
      buttons:TStringList;
@@ -29,13 +30,6 @@ procedure MainMenu;
 procedure SearchMenu;
 
 implementation
-
-procedure SearchMenu;
-begin
-  context.Deep('SearchMenu');
-  raiseError('NotImplemented ERROR');
-  context.Up;
-end;
 
 function TMenu.Show:byte;
 var
@@ -80,7 +74,9 @@ var
   _t:string;
 begin
   context.Deep('ShowInput');
+
   {render}
+  ClrScr;
   textColor(white);
   WriteLn(S_PROGRAMNAME);
   textColor(7);
@@ -108,31 +104,77 @@ begin
   context.Up;
 end;
 
-procedure MainMenu;
+procedure SearchMenu;
 var
   menu:TMenu;
   code:byte;
+  result:TUserArray;
 begin
+  context.Deep('SearchMenu');
+
   {init}
-  context.Deep('MainMenu');
   with menu.buttons do begin
        Init;
-       Add(fitString(S_SEARCH,10,false));
-       Add(fitString(S_DELETE,10,false));
-       Add(fitString(S_ADD,10,false));
-       Add(fitString(s_EXIT,10,false));
+       Add(fitString(S_NAME,BL,false));
+       Add(fitString(S_SURNAME,BL,false));
+       Add(fitString(S_DOB,BL,false));
+       Add(fitString(S_CITY,BL,false));
+       Add(fitString(S_SCHOOL,BL,false));
+       Add(fitString(S_BACK,BL,false));
   end;
-  menu.msg:=S_MAINMSG;
-  dataBase.init;
+  menu.msg:=S_SEARCHFIELD;
+  dataBase.init; result.init;
 
   {render}
   code := menu.Show;
 
   {logic}
-  case code of
-       1: SearchMenu;
-       2..3:raiseError('NotImplemented');
+  if (code <> 6) then
+  begin
+       menu.msg:=S_PROMT;
+       dataBase.getBySearch(menu.ShowInput,code,result);
+
+       {render result}
+       if (result.count>0) then result.Print else WriteLn();
+       WriteLn(S_ANYKEY);
+       ReadKey;
   end;
+
+  context.Up;
+end;
+
+procedure MainMenu;
+var
+  menu:TMenu;
+  code:byte;
+  online:boolean;
+begin
+  {init}
+  context.Deep('MainMenu');
+  with menu.buttons do begin
+       Init;
+       Add(fitString(S_SEARCH,BL,false));
+       Add(fitString(S_DELETE,BL,false));
+       Add(fitString(S_ADD,BL,false));
+       Add(fitString(s_EXIT,BL,false));
+  end;
+  menu.msg:=S_MAINMSG;
+  dataBase.init;
+  online:=true;
+
+  {mainCycle}
+  repeat
+        {render}
+        code := menu.Show;
+
+        {logic}
+        case code of
+                1: SearchMenu;
+             2..3: raiseError('NotImplemented');
+                4: online:=false;
+        end;
+  until not online ;
+
   context.Up;
 end;
 
