@@ -117,10 +117,10 @@ begin
   context.Deep('MainMenu');
   with menu.buttons do begin
        Init;
-       Add(fitString(S_SEARCH,10));
-       Add(fitString(S_DELETE,10));
-       Add(fitString(S_ADD,10));
-       Add(fitString(s_EXIT,10));
+       Add(fitString(S_SEARCH,10,false));
+       Add(fitString(S_DELETE,10,false));
+       Add(fitString(S_ADD,10,false));
+       Add(fitString(s_EXIT,10,false));
   end;
   menu.msg:=S_MAINMSG;
   dataBase.init;

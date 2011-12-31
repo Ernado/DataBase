@@ -48,11 +48,11 @@ end;
 
 procedure TUser.Print;
 begin
-     WriteLn(fitString(name,11),'|',
-             fitString(surname,11),'|',
-             fitString(dob,10),'|',
-             fitString(city,11),'|',
-             fitString(school,20),'|');
+     WriteLn(fitString(name,11,true),'|',
+             fitString(surname,11,true),'|',
+             fitString(dob,10,true),'|',
+             fitString(city,11,true),'|',
+             fitString(school,20,true),'|');
 end;
 
 procedure TUserArray.Add(u:TUser);
