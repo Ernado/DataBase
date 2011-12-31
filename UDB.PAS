@@ -32,9 +32,10 @@ type TDataBase = object
      constructor init;
      procedure openSession;
      procedure closeSession;
-     procedure getUser(var user:Tuser);
+     procedure getUser(var user:TUser);
      procedure getBySearch(promt:string;field:byte;var users:TUserArray);
      procedure skipToData;
+     procedure addUser(user:TUser);
      private
      function checkFormat:boolean;
      procedure skipLine;
@@ -120,7 +121,7 @@ end;
 
 {иницирует базу данных с обработкой ошибок
            path - путь к базе данных}
-Constructor TdataBase.init;
+Constructor TDataBase.init;
 begin
      context.Deep('DBINIT');
 
@@ -133,7 +134,7 @@ begin
 end;
 
 {проверяет на сооветствие файла базы данных}
-function TdataBase.checkFormat:boolean;
+function TDataBase.checkFormat:boolean;
 begin
      context.Deep('CheckFormat');
 
@@ -145,7 +146,7 @@ begin
 end;
 
 {открывает файл на чтение}
-procedure TdataBase.openSession;
+procedure TDataBase.openSession;
 begin
      context.Deep('OpenSession');
 
@@ -160,7 +161,7 @@ begin
 end;
 
 {закрывает сессию}
-procedure TdataBase.closeSession;
+procedure TDataBase.closeSession;
 begin
      context.Deep('CloseSession');
 
@@ -175,7 +176,7 @@ begin
 end;
 
 {пропускает строку в базе данных}
-procedure TdataBase.skipLine;
+procedure TDataBase.skipLine;
 begin
      context.Deep('SkipLine');
 
@@ -189,7 +190,7 @@ begin
 end;
 
 {возвращает следующую строку в файле}
-function TdataBase.getLine:string;
+function TDataBase.getLine:string;
 var
    _t:string;
 begin
@@ -205,7 +206,7 @@ begin
 end;
 
 {возращает сущность из базы данных}
-procedure TdataBase.getUser(var user:Tuser);
+procedure TDataBase.getUser(var user:Tuser);
 begin
      context.Deep('getUser');
 
@@ -228,7 +229,7 @@ begin
 end;
 
 {пропускает техническую информацию}
-procedure TdataBase.skipToData;
+procedure TDataBase.skipToData;
 begin
      context.Deep('skipToData');
 
@@ -265,6 +266,13 @@ begin
      until eof(dataFile) or (users.count=MAXIMUM_USER);
      closeSession;
 
+     context.Up;
+end;
+
+procedure TDataBase.addUser(user:TUser);
+begin
+     context.Deep('TDB.addUser');
+     raiseError('NotImplemented ERROR');
      context.Up;
 end;
 
