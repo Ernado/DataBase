@@ -272,7 +272,22 @@ end;
 procedure TDataBase.addUser(user:TUser);
 begin
      context.Deep('TDB.addUser');
-     raiseError('NotImplemented ERROR');
+
+     {$I-}
+     if session then raiseError('SESSION OPENED, CANT APPEND');
+
+     Append(dataFile);
+     WriteLn(dataFile,'user');
+     WriteLn(dataFile,user.name);
+     WriteLn(dataFile,user.surname);
+     WriteLn(dataFile,user.dob);
+     WriteLn(dataFile,user.school);
+     WriteLn(dataFile,user.city);
+     WriteLn(dataFile,'enduser');
+
+     if IOResult<>0 then raiseError('IO ERROR');
+     {$I+}
+
      context.Up;
 end;
 
