@@ -8,10 +8,12 @@ uses
 const
   MAXIMUM_USER = 5;
   DBFPATH = 'database.db';
+  TMPATH = 'tmp.db';
 
 type TUser = object
   name, surname, school, city:string;
   dob: string[10];
+  id: string[2];
   procedure Print;
 end;
 
@@ -30,16 +32,18 @@ type TDataBase = object
      session:boolean;
      public
      constructor init;
-     procedure openSession;
-     procedure closeSession;
      procedure getUser(var user:TUser);
      procedure getBySearch(promt:string;field:byte;var users:TUserArray);
-     procedure skipToData;
      procedure addUser(user:TUser);
+     procedure deteleUser (i:string);
      private
+     procedure openSession;
+     procedure closeSession;
+     procedure skipToData;
      function checkFormat:boolean;
      procedure skipLine;
      function getLine:string;
+
 end;
 
 implementation
@@ -51,7 +55,8 @@ end;
 
 procedure TUser.Print;
 begin
-     WriteLn(fitString(name,11,true),'|',
+     WriteLn(fitString(id,2,true),'|',
+             fitString(name,11,true),'|',
              fitString(surname,11,true),'|',
              fitString(dob,10,true),'|',
              fitString(city,11,true),'|',
@@ -96,6 +101,7 @@ begin
      {render header}
      with user do
      begin
+          id:=S_ID;
           name:=S_NAME;
           surname:=S_SURNAME;
           dob:=S_DOB;
@@ -105,6 +111,7 @@ begin
      user.Print;
      with user do
      begin
+          id:='==';
           name:='===========';
           surname:='===========';
           dob:='==========';
@@ -215,6 +222,7 @@ begin
      if (getLine <> 'user') then raiseError('TYPE ERROR');
      with user do
      begin
+          id:='';
           name:=getLine;
           surname:=getLine;
           dob:=getLine;
@@ -242,18 +250,22 @@ end;
 
 procedure TDataBase.getBySearch(promt:string; field:byte;var users:TUserArray);
 var
+   id:byte;
    user:TUser;
    s:string;
 begin
-     context.Deep('getByName');
+     context.Deep('getBySearch');
 
      {init}
      skipToData; {openSession+}
      users.init;
+     id:=0;
 
      {logic}
      repeat
        getUser(user);
+       inc(id);
+       str(id,user.id);
        case field of
             1: s:=user.name;
             2: s:=user.surname;
@@ -289,6 +301,44 @@ begin
      {$I+}
 
      context.Up;
+end;
+
+procedure TDataBase.deteleUser (i:string);
+var
+   user:TUser;
+   tmp:text;
+   id:byte;
+begin
+     Context.Deep('deleteUser');
+     Assign(tmp,TMPATH);Reset(tmp);
+     WriteLn(tmp,'database');
+     {init}
+     skipToData; {openSession+}
+     id:=0;
+
+     {logic}
+
+     repeat
+       getUser(user);
+       inc(id);
+       str(id,user.id);
+       if (i<>user.id) then
+          with user do
+          begin
+               WriteLn(tmp,'user');
+               WriteLn(tmp,name);
+               WriteLn(tmp,surname);
+               WriteLn(tmp,dob);
+               WriteLn(tmp,school);
+               WriteLn(tmp,city);
+               WriteLn(tmp,'enduser');
+          end;
+     until eof(dataFile);
+     closeSession; Close(tmp);
+     Erase(dataFile);
+     rename(tmp,DBFPATH);
+     Assign(dataFile,DBFPATH);
+     Context.Up;
 end;
 
 end.
