@@ -12,10 +12,13 @@ const
   S_SEARCHFIELD = 'Поле поиска:';
   S_NAME = 'Имя';
   S_SURNAME = 'Фамилия';
-  S_DOB = 'Дата рождения';
+  S_DOB = 'Дата рожд.';
   S_CITY = 'Город';
   S_SCHOOL = 'Учебное заведение';
   S_PROMT = 'Искать:';
+  S_BACK = 'Назад';
+  S_NOTFOUND ='Не найдено';
+  S_ANYKEY = 'Нажмите любую клавишу для продолжения';
 
 implementation
 
