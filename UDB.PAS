@@ -213,7 +213,7 @@ begin
 
      {init}
      skipToData;
-     users.count:=0;
+     users.init;
 
      {logic}
      repeat
