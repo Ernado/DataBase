@@ -1,17 +1,13 @@
-{Menus 0.1.7 by Razumov}
+{Menus 0.1.8 by Razumov}
 unit menus;
 
 interface
-uses errors, lists, crt, locale, helpers, graph, UDB;
+uses errors, lists, crt, locale, helpers{, graph}, UDB;
 
 const
   BUTTON_COLOR = 7;
   TEXT_COLOR = 0;
   FOCUS_COLOR = 9;
-
-const
-  DBFPATH = 'database.db';
-
 
 type TMenu = object
      buttons:TStringList;
@@ -33,6 +29,13 @@ procedure MainMenu;
 procedure SearchMenu;
 
 implementation
+
+procedure SearchMenu;
+begin
+  context.Deep('SearchMenu');
+  raiseError('NotImplemented ERROR');
+  context.Up;
+end;
 
 function TMenu.Show:byte;
 var
@@ -114,20 +117,21 @@ begin
   context.Deep('MainMenu');
   with menu.buttons do begin
        Init;
-       Add(S_SEARCH);
-       Add(S_DELETE);
-       Add(S_ADD);
-       Add(s_EXIT);
+       Add(fitString(S_SEARCH,10));
+       Add(fitString(S_DELETE,10));
+       Add(fitString(S_ADD,10));
+       Add(fitString(s_EXIT,10));
   end;
   menu.msg:=S_MAINMSG;
-  dataBase.init();
+  dataBase.init;
 
   {render}
   code := menu.Show;
 
   {logic}
   case code of
-       1..3:raiseError('NotImplemented');
+       1: SearchMenu;
+       2..3:raiseError('NotImplemented');
   end;
   context.Up;
 end;
