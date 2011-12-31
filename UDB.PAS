@@ -32,6 +32,7 @@ type TDataBase = object
      procedure openSession;
      procedure closeSession;
      procedure getUser(var user:Tuser);
+     procedure getByName(name:string;var users:TUserArray);
      procedure skipToData;
      private
      function checkFormat:boolean;
@@ -181,6 +182,24 @@ begin
      if session then raiseError('SESSION ALREADY OPENED ERROR');
      openSession;
      skipLine;
+     context.Up;
+end;
+
+procedure TDataBase.getByName(name:string;var users:TUserArray);
+var
+   user:TUser;
+begin
+     context.Deep('getByName');
+     {init}
+     skipToData;
+     users.count:=0;
+
+     {logic}
+     repeat
+       getUser(user);
+       if (user.name=name) then users.Add(user);
+     until eof(dataFile) or (users.count=MAXIMUM_USER);
+     closeSession;
      context.Up;
 end;
 
