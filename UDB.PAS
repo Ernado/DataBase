@@ -59,9 +59,11 @@ end;
 procedure TUserArray.Add(u:TUser);
 begin
      Context.Deep('TUserArray.Add');
+
      if (count+1) > MAXIMUM_USER then raiseError('ERROR STACK OVERFLOW');
      inc(count);
      users[count]:=u;
+
      Context.Up;
 end;
 
@@ -75,8 +77,10 @@ end;
 procedure TUserArray.Get(i:byte; var u:TUser);
 begin
      Context.Deep('TUserArray.Get');
+
      if (i<1) or (i>count) then raiseError('OUT OF BOUNDS ERROR');
      u:=users[i];
+
      Context.Up;
 end;
 
@@ -85,10 +89,12 @@ end;
 Constructor TdataBase.init;
 begin
      context.Deep('DBINIT');
+
      {$I-}Assign(dataFile,DBFPATH);
      if (IOResult <> 0) then raiseError('IO ERROR');
      {$I+}
      if not checkFormat then raiseError('DATABASE FORMAT ERROR');
+
      context.Up;
 end;
 
@@ -96,9 +102,11 @@ end;
 function TdataBase.checkFormat:boolean;
 begin
      context.Deep('CheckFormat');
+
      openSession;
      checkFormat:= getline = 'database';
      closeSession;
+
      context.Up;
 end;
 
@@ -106,12 +114,14 @@ end;
 procedure TdataBase.openSession;
 begin
      context.Deep('OpenSession');
+
      if session then raiseError('SESSION ALREADY OPENED');
      {$I-}
      Reset(dataFile);
      if (IOResult <> 0) then raiseError('IO ERROR');
      {$I+}
      session := true;
+
      context.Up;
 end;
 
@@ -119,12 +129,14 @@ end;
 procedure TdataBase.closeSession;
 begin
      context.Deep('CloseSession');
+
      if not session then raiseError('NO SESSION TO CLOSE');
      {$I-}
      Close(dataFile);
      if (IOResult <> 0) then raiseError('IO ERROR');
      {$I+}
      session:=false;
+
      context.Up;
 end;
 
@@ -132,11 +144,13 @@ end;
 procedure TdataBase.skipLine;
 begin
      context.Deep('SkipLine');
+
      if not session then raiseError('NO SESSION ERROR');
      {$I-}
      ReadLn(dataFile);
      if (IOResult <> 0) then raiseError('IO ERROR');
      {$I+}
+
      context.Up;
 end;
 
@@ -146,11 +160,13 @@ var
    _t:string;
 begin
      context.Deep('getLine');
+
      {$I-}
      ReadLn(dataFile,_t);
      if (IOResult <> 0) then raiseError('IO ERROR');
      {$I+}
      getLine := _t;
+
      context.Up;
 end;
 
@@ -158,6 +174,7 @@ end;
 procedure TdataBase.getUser(var user:Tuser);
 begin
      context.Deep('getUser');
+
      if not session then raiseError('NO SESSION ERROR');
      {$I-}
      if (getLine <> 'user') then raiseError('TYPE ERROR');
@@ -172,6 +189,7 @@ begin
      if (getLine <> 'enduser') then raiseError('TYPE ERROR');
      if (IOResult <> 0) then  raiseError('IO ERROR');
      {$I+}
+
      context.Up;
 end;
 
@@ -179,9 +197,11 @@ end;
 procedure TdataBase.skipToData;
 begin
      context.Deep('skipToData');
+
      if session then raiseError('SESSION ALREADY OPENED ERROR');
      openSession;
      skipLine;
+
      context.Up;
 end;
 
@@ -190,6 +210,7 @@ var
    user:TUser;
 begin
      context.Deep('getByName');
+
      {init}
      skipToData;
      users.count:=0;
@@ -200,6 +221,7 @@ begin
        if (user.name=name) then users.Add(user);
      until eof(dataFile) or (users.count=MAXIMUM_USER);
      closeSession;
+
      context.Up;
 end;
 
