@@ -9,6 +9,13 @@ const
   S_DELETE = 'Удалить';
   S_ADD = 'Добавить';
   S_MAINMSG = 'Главное меню.';
+  S_SEARCHFIELD = 'Поле поиска:';
+  S_NAME = 'Имя';
+  S_SURNAME = 'Фамилия';
+  S_DOB = 'Дата рождения';
+  S_CITY = 'Город';
+  S_SCHOOL = 'Учебное заведение';
+  S_PROMT = 'Искать:';
 
 implementation
 
