@@ -19,7 +19,7 @@ const
   S_BACK = 'Назад';
   S_NOTFOUND ='Не найдено';
   S_ANYKEY = 'Нажмите любую клавишу для продолжения';
-
+  S_ID = '№';
 implementation
 
 end.
