@@ -1,4 +1,4 @@
-{Helpers 0.1.2 by Razumov}
+{Helpers 0.1.3 by Razumov}
 unit helpers;
 
 interface
@@ -10,7 +10,7 @@ end;
 
 function value(s:string):integer;
 
-function fitString(s:string;n:word):string;
+function fitString(s:string;n:word;direction:boolean):string;
 
 implementation
 {конвертирует строку в число с обработкой ошибок
@@ -32,7 +32,7 @@ begin
      context.Up;
 end;
 
-function fitString(s:string;n:word):string;
+function fitString(s:string;n:word;direction:boolean):string;
 var
   l:byte;
   _e:string;
@@ -49,9 +49,7 @@ begin
   end;
 
   dec(n,l);
-  for i:=1 to n do begin
-      s:=' '+s;
-  end;
+  for i:=1 to n do if direction then s:=' '+s else s:=s+' ';
   fitString:=s;
   context.Up;
 end;
