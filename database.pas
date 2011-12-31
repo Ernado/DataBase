@@ -10,7 +10,7 @@ var
 begin
 {ChDir('D:\Work\liceum\database');}
 context.count:=0;
-context.Deep('Main');
+context.Deep('Main');   {
 dataBase.init(DBFPATH);
 dataBase.skipToData;
 with user do
@@ -35,7 +35,7 @@ repeat
       database.getUser(user);
       user.Print;
 until eof(dataBase.dataFile);
-ReadKey;
+ReadKey;}
 MainMenu;
 context.Up;
 end.
