@@ -2,12 +2,15 @@
 unit menus;
 
 interface
-uses errors, lists, crt, locale, helpers, graph;
+uses errors, lists, crt, locale, helpers, graph, UDB;
 
 const
   BUTTON_COLOR = 7;
   TEXT_COLOR = 0;
   FOCUS_COLOR = 9;
+
+const
+  DBFPATH = 'database.db';
 
 
 type TMenu = object
@@ -24,7 +27,10 @@ type TMenu = object
      {procedure ChangeMode;    }
 end;
 
+var dataBase:TDataBase;
+
 procedure MainMenu;
+procedure SearchMenu;
 
 implementation
 
@@ -114,6 +120,7 @@ begin
        Add(s_EXIT);
   end;
   menu.msg:=S_MAINMSG;
+  dataBase.init();
 
   {render}
   code := menu.Show;

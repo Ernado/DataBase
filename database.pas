@@ -3,9 +3,6 @@ program PDataBase;
 uses
     crt, UDB, errors, menus, lists;
 
-const
-  DBFPATH = 'database.db';
-
 var
   dataBase:TDataBase;
   user:TUser;

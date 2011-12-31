@@ -7,6 +7,7 @@ uses
 
 const
   MAXIMUM_USER = 5;
+  DBFPATH = 'database.db';
 
 type TUser = object
   name, surname, school, city:string;
@@ -27,7 +28,7 @@ type TDataBase = object
      dataFile:text;
      session:boolean;
      public
-     constructor init(path:string);
+     constructor init;
      procedure openSession;
      procedure closeSession;
      procedure getUser(var user:Tuser);
@@ -80,10 +81,10 @@ end;
 
 {иницирует базу данных с обработкой ошибок
            path - путь к базе данных}
-Constructor TdataBase.init(path:string);
+Constructor TdataBase.init;
 begin
      context.Deep('DBINIT');
-     {$I-}Assign(dataFile,path);
+     {$I-}Assign(dataFile,DBFPATH);
      if (IOResult <> 0) then raiseError('IO ERROR');
      {$I+}
      if not checkFormat then raiseError('DATABASE FORMAT ERROR');
