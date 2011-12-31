@@ -15,7 +15,7 @@ type TMenu = object
      code:byte;
      focus:byte;
      online:boolean;
-     msg:string;
+     msg:string[30];
      private
      procedure Render;
      function ShowG:byte;
@@ -80,7 +80,7 @@ begin
   textColor(white);
   WriteLn(S_PROGRAMNAME);
   textColor(7);
-  WriteLn(msg);
+  Write(msg,' ');
 
   {input}
   TextColor(white);
@@ -135,7 +135,7 @@ begin
        dataBase.getBySearch(menu.ShowInput,code,result);
 
        {render result}
-       if (result.count>0) then result.Print else WriteLn();
+       if (result.count>0) then result.Print else WriteLn(S_NOTFOUND);
        WriteLn(S_ANYKEY);
        ReadKey;
   end;
