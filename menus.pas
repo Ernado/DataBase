@@ -18,6 +18,7 @@ type TMenu = object
      msg:string[30];
      private
      procedure Render;
+     {procedure UserInput(user:TUser);}
      function ShowG:byte;
      function Show:byte;
      function ShowInput:string;
