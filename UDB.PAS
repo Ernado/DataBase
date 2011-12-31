@@ -3,7 +3,7 @@ unit UDB;
 
 interface
 uses
-  crt, errors, helpers;
+  crt, errors, helpers, locale;
 
 const
   MAXIMUM_USER = 5;
@@ -22,6 +22,7 @@ type TUserArray = object
   procedure Get(i:byte;var u:TUser);
   procedure Add(u:TUser);
   procedure Delete(i:byte);
+  procedure Print;
 end;
 
 type TDataBase = object
@@ -32,7 +33,7 @@ type TDataBase = object
      procedure openSession;
      procedure closeSession;
      procedure getUser(var user:Tuser);
-     procedure getByName(name:string;var users:TUserArray);
+     procedure getBySearch(promt:string;field:byte;var users:TUserArray);
      procedure skipToData;
      private
      function checkFormat:boolean;
@@ -82,6 +83,39 @@ begin
      u:=users[i];
 
      Context.Up;
+end;
+
+procedure TUserArray.Print;
+var
+   user:TUser;
+   i:byte;
+begin
+     context.Deep('TUserArray.Print');
+
+     {render header}
+     with user do
+     begin
+          name:=S_NAME;
+          surname:=S_SURNAME;
+          dob:=S_DOB;
+          city:=S_CITY;
+          school:=S_SCHOOL;
+     end;
+     user.Print;
+     with user do
+     begin
+          name:='===========';
+          surname:='===========';
+          dob:='==========';
+          city:='===========';
+          school:='====================';
+     end;
+     user.Print;
+
+     {render users info}
+     for i:=1 to count do users[i].Print;
+
+     context.Up;
 end;
 
 {иницирует базу данных с обработкой ошибок
@@ -205,20 +239,29 @@ begin
      context.Up;
 end;
 
-procedure TDataBase.getByName(name:string;var users:TUserArray);
+procedure TDataBase.getBySearch(promt:string; field:byte;var users:TUserArray);
 var
    user:TUser;
+   s:string;
 begin
      context.Deep('getByName');
 
      {init}
-     skipToData;
+     skipToData; {openSession+}
      users.init;
 
      {logic}
      repeat
        getUser(user);
-       if (user.name=name) then users.Add(user);
+       case field of
+            1: s:=user.name;
+            2: s:=user.surname;
+            3: s:=user.dob;
+            4: s:=user.city;
+            5: s:=user.school;
+       else raiseError('UNKNOWN FIELD');
+       end;
+       if (s=promt) then users.Add(user);
      until eof(dataFile) or (users.count=MAXIMUM_USER);
      closeSession;
 
