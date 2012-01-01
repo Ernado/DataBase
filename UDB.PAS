@@ -83,7 +83,6 @@ var
    i,j:byte;
    a,b:string;
 begin
-
      Context.Deep('TUserArray.Sort');
 
      for i:=count-1 downto 1 do
@@ -96,7 +95,11 @@ begin
                    5: begin a:=users[j].school; b:=users[j+1].school; end;
               else raiseError('Sort field out of bounds');
               end;
-              if a>b then swap(j,j+1);
+
+              if direction then
+                 if a>b then swap(j,j+1)
+              else
+                 if a<b then swap(j,j+1);
          end;
 
      Context.Up;
