@@ -20,6 +20,7 @@ const
   S_NOTFOUND ='Не найдено';
   S_ANYKEY = 'Нажмите любую клавишу для продолжения';
   S_ID = '№';
+  S_USERINPUT = 'Введите данные ученика';
 implementation
 
 end.
