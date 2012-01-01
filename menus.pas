@@ -30,6 +30,7 @@ procedure MainMenu;
 procedure SearchMenu;
 procedure AddMenu;
 procedure DeleteMenu;
+procedure ViewMenu;
 
 implementation
 
@@ -158,6 +159,7 @@ begin
        Add(fitString(S_SEARCH,BL,false));
        Add(fitString(S_DELETE,BL,false));
        Add(fitString(S_ADD,BL,false));
+       Add(fitString(S_VIEW,BL,false));
        Add(fitString(s_EXIT,BL,false));
   end;
   menu.msg:=S_MAINMSG;
@@ -174,7 +176,8 @@ begin
                 1: SearchMenu;
                 2: DeleteMenu;
                 3: AddMenu;
-                4: online:=false;
+                4: ViewMenu;
+                5: online:=false;
         end;
   until not online ;
 
@@ -215,6 +218,13 @@ end;
 procedure DeleteMenu;
 begin
   context.Deep('DeleteMenu');
+  raiseError('NotImplemented ERROR');
+  context.Up;
+end;
+
+procedure ViewMenu;
+begin
+  context.Deep('ViewMenu');
   raiseError('NotImplemented ERROR');
   context.Up;
 end;
