@@ -125,7 +125,7 @@ begin
        Add(fitString(S_BACK,BL,false));
   end;
   menu.msg:=S_SEARCHFIELD;
-  dataBase.init; result.init;
+  result.init;
 
   {render}
   code := menu.Show;
@@ -182,9 +182,33 @@ begin
 end;
 
 procedure AddMenu;
+var
+  user:TUser;
+  users:TUserArray;
 begin
   context.Deep('AddMenu');
-  raiseError('NotImplemented ERROR');
+
+  {init}
+  users.init;
+
+  {render}
+  ClrScr;
+  TextColor(white);
+  WriteLn(S_PROGRAMNAME);
+  WriteLn(S_ADDMSG);
+  user.input;
+  ClrScr;
+  users.Add(user);
+  users.print;
+
+  {logic}
+  database.addUser(user);
+
+  {render}
+  WriteLn(S_SUCCES);
+  WriteLn(S_ANYKEY);
+  readkey;
+
   context.Up;
 end;
 
