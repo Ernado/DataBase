@@ -15,6 +15,7 @@ type TUser = object
   dob: string[10];
   id: string[2];
   procedure Print;
+  procedure Input;
 end;
 
 type TUserArray = object
@@ -339,6 +340,17 @@ begin
      rename(tmp,DBFPATH);
      Assign(dataFile,DBFPATH);
      Context.Up;
+end;
+
+procedure TUser.Input;
+begin
+  TextColor(white);
+  WriteLn(S_USERINPUT);
+  TextColor(LightGray); Write(S_NAME,': '); TextColor(white); ReadLn(name);
+  TextColor(LightGray); Write(S_SURNAME,': '); TextColor(white); ReadLn(surname);
+  TextColor(LightGray); Write(S_DOB,': '); TextColor(white); ReadLn(dob);
+  TextColor(LightGray); Write(S_CITY,': '); TextColor(white); ReadLn(city);
+  TextColor(LightGray); Write(S_SCHOOL,': '); TextColor(white); ReadLn(school);
 end;
 
 end.
