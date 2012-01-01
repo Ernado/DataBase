@@ -1,7 +1,7 @@
 {DataBase v1.0 by Razumov}
 program PDataBase;
 uses
-    errors, menus;
+  errors, menus;
 
 begin
 context.count:=0;
