@@ -26,6 +26,9 @@ type TUserArray = object
   procedure Add(u:TUser);
   procedure Delete(i:byte);
   procedure Print;
+  procedure Sort(n:byte;direction:boolean);
+  private
+  procedure Swap(i,j:byte);
 end;
 
 type TDataBase = object
@@ -75,10 +78,54 @@ begin
      Context.Up;
 end;
 
+procedure TUserArray.Sort(n:byte;direction:boolean);
+var
+   i,j:byte;
+   a,b:string;
+begin
+
+     Context.Deep('TUserArray.Sort');
+
+     for i:=count-1 downto 1 do
+         for j:=1 to i do begin
+              case n of
+                   1: begin a:=users[j].name; b:=users[j+1].name; end;
+                   2: begin a:=users[j].surname; b:=users[j+1].surname; end;
+                   3: begin a:=users[j].dob; b:=users[j+1].dob; end;
+                   4: begin a:=users[j].city; b:=users[j+1].city; end;
+                   5: begin a:=users[j].school; b:=users[j+1].school; end;
+              else raiseError('Sort field out of bounds');
+              end;
+              if a>b then swap(j,j+1);
+         end;
+
+     Context.Up;
+end;
+
 procedure TUserArray.Delete (i:byte);
 begin
      Context.Deep('TUserArray.Delete');
      raiseError('NotImplemented ERROR');
+     Context.Up;
+end;
+
+procedure TUserArray.Swap(i,j:byte);
+var
+   t:TUser;
+begin
+     Context.Deep('Swap');
+
+     {check for bounds}
+     if (i<1) or (i>count) then raiseError('OUT OF BOUNDS ERROR');
+     if (j<1) or (j>count) then raiseError('OUT OF BOUNDS ERROR');
+
+     {swap}
+     t:=users[i];
+     users[i]:=users[j];
+     users[j].id:=users[i].id;
+     users[i].id:=t.id;
+     users[j]:=t;
+
      Context.Up;
 end;
 
