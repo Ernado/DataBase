@@ -1,4 +1,4 @@
-{Menus 0.1.8 by Razumov}
+{Menus 0.5 by Razumov}
 unit menus;
 
 interface
@@ -18,7 +18,6 @@ type TMenu = object
      msg:string[30];
      private
      procedure Render;
-     {procedure UserInput(user:TUser);}
      function ShowG:byte;
      function Show:byte;
      function ShowInput:string;
@@ -29,6 +28,8 @@ var dataBase:TDataBase;
 
 procedure MainMenu;
 procedure SearchMenu;
+procedure AddMenu;
+procedure DeleteMenu;
 
 implementation
 
@@ -171,11 +172,26 @@ begin
         {logic}
         case code of
                 1: SearchMenu;
-             2..3: raiseError('NotImplemented');
+                2: DeleteMenu;
+                3: AddMenu;
                 4: online:=false;
         end;
   until not online ;
 
+  context.Up;
+end;
+
+procedure AddMenu;
+begin
+  context.Deep('AddMenu');
+  raiseError('NotImplemented ERROR');
+  context.Up;
+end;
+
+procedure DeleteMenu;
+begin
+  context.Deep('DeleteMenu');
+  raiseError('NotImplemented ERROR');
   context.Up;
 end;
 
