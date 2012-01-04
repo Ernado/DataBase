@@ -6,7 +6,7 @@ uses
   crt, errors, helpers, locale;
 
 const
-  MAXIMUM_USER = 5;
+  MAXIMUM_USER = 7;
   DBFPATH = 'database.db';
   TMPATH = 'tmp.db';
 
@@ -40,6 +40,7 @@ type TDataBase = object
      procedure getBySearch(promt:string;field:byte;var users:TUserArray);
      procedure addUser(user:TUser);
      procedure deteleUser (i:string);
+     procedure getRange(start,n:byte;var users:TUserArray);
      private
      procedure openSession;
      procedure closeSession;
@@ -125,11 +126,7 @@ begin
      {swap}
      t:=users[i];
      users[i]:=users[j];
-     users[j].id:=users[i].id;
-     users[i].id:=t.id;
      users[j]:=t;
-
-     Context.Up;
 end;
 
 procedure TUserArray.Get(i:byte; var u:TUser);
@@ -389,6 +386,30 @@ begin
      Erase(dataFile);
      rename(tmp,DBFPATH);
      Assign(dataFile,DBFPATH);
+     Context.Up;
+end;
+
+procedure TDataBase.getRange(start,n:byte;var users:TUserArray);
+var
+   i:byte;
+   user:TUser;
+begin
+     Context.Deep('TDataBase.getRange');
+
+     skipToData;
+     i:=0; users.init;
+
+     repeat
+       getUser(user);
+       inc(i);
+       str(i,user.id);
+       if (i>=start) then
+       begin
+            users.Add(user);
+       end;
+     until eof(DataFile) or (users.count=n);
+
+     closeSession;
      Context.Up;
 end;
 
