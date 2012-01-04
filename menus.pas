@@ -60,6 +60,7 @@ begin
              WriteLn(buttons.Get(i));
         end;
         TextBackGround(0);
+        TextColor(white);
         {input}
         c:=ReadKey;
         case c of
@@ -223,9 +224,40 @@ begin
 end;
 
 procedure ViewMenu;
+var
+  code:byte;
+  menu:TMenu;
+  result:TUserArray;
 begin
+  {init}
   context.Deep('ViewMenu');
-  raiseError('NotImplemented ERROR');
+  with menu.buttons do begin
+       Init;
+       Add(fitString(S_NAME,BL,false));
+       Add(fitString(S_SURNAME,BL,false));
+       Add(fitString(S_DOB,BL,false));
+       Add(fitString(S_CITY,BL,false));
+       Add(fitString(S_SCHOOL,BL,false));
+       Add(fitString(S_NUMBER,BL,false));
+       Add(fitString(S_BACK,BL,false));
+  end;
+  menu.msg:=S_SORTFIELD; result.init;
+
+
+  {render}
+  code := menu.Show; ClrScr;
+
+  {logic}
+  if (code <> 7) then
+  begin
+       dataBase.getRange(0,MAXIMUM_USER,result);
+       if (code <> 6) then result.Sort(code,true);
+       {render result}
+       TextColor(white);
+       result.Print;
+       WriteLn(S_ANYKEY);
+       ReadKey;
+  end;
   context.Up;
 end;
 
