@@ -272,7 +272,7 @@ begin
      if (getLine <> 'user') then raiseError('TYPE ERROR');
      with user do
      begin
-          id:='';
+          id:='00';
           name:=getLine;
           surname:=getLine;
           dob:=getLine;
@@ -417,6 +417,7 @@ end;
 
 procedure TUser.Input;
 begin
+  id:='00';
   TextColor(white);
   WriteLn(S_USERINPUT);
   TextColor(LightGray); Write(S_NAME,': '); TextColor(white); ReadLn(name);
