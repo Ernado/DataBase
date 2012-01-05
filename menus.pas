@@ -235,7 +235,7 @@ begin
        Init;
        Add(fitString(S_NAME,BL,false));
        Add(fitString(S_SURNAME,BL,false));
-       Add(fitString(S_DOB,BL,false));
+       {Add(fitString(S_DOB,BL,false));}
        Add(fitString(S_CITY,BL,false));
        Add(fitString(S_SCHOOL,BL,false));
        Add(fitString(S_NUMBER,BL,false));
