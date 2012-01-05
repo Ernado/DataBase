@@ -11,7 +11,10 @@ const
   TMPATH = 'tmp.db';
 
 type TUser = object
-  name, surname, school, city:string;
+  name:string[15];
+  surname:string[15];
+  school:string[20];
+  city:string[20];
   dob: string[10];
   id: string[2];
   procedure Print;
@@ -85,24 +88,21 @@ var
    a,b:string;
 begin
      Context.Deep('TUserArray.Sort');
-
-     for i:=count-1 downto 1 do
-         for j:=1 to i do begin
+     for i:=1 to count-1 do
+         for j:=1 to count-1 do
+             begin
               case n of
                    1: begin a:=users[j].name; b:=users[j+1].name; end;
                    2: begin a:=users[j].surname; b:=users[j+1].surname; end;
-                   3: begin a:=users[j].dob; b:=users[j+1].dob; end;
-                   4: begin a:=users[j].city; b:=users[j+1].city; end;
-                   5: begin a:=users[j].school; b:=users[j+1].school; end;
+                   {3: begin a:=users[j].dob; b:=users[j+1].dob; end; }
+                   3: begin a:=users[j].city; b:=users[j+1].city; end;
+                   4: begin a:=users[j].school; b:=users[j+1].school; end;
               else raiseError('Sort field out of bounds');
               end;
 
-              if direction then
-                 if a>b then swap(j,j+1)
-              else
-                 if a<b then swap(j,j+1);
-         end;
-
+              if direction and (a>b) then
+                 swap(j,j+1);
+             end;
      Context.Up;
 end;
 
@@ -127,6 +127,8 @@ begin
      t:=users[i];
      users[i]:=users[j];
      users[j]:=t;
+
+     Context.Up;
 end;
 
 procedure TUserArray.Get(i:byte; var u:TUser);
