@@ -219,7 +219,7 @@ end;
 procedure DeleteMenu;
 begin
   context.Deep('DeleteMenu');
-  raiseError('NotImplemented ERROR');
+  raiseError(S_NOTIMPL);
   context.Up;
 end;
 
@@ -248,10 +248,10 @@ begin
   code := menu.Show; ClrScr;
 
   {logic}
-  if (code <> 7) then
+  if (code <> 6) then
   begin
        dataBase.getRange(0,MAXIMUM_USER,result);
-       if (code <> 6) then result.Sort(code,true);
+       if (code <> 5) then result.Sort(code,true);
        {render result}
        TextColor(white);
        result.Print;
