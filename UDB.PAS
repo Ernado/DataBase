@@ -1,4 +1,4 @@
-{UDataBase by Razumov}
+{UDataBase 1.0 by Razumov}
 unit UDB;
 
 interface
@@ -75,7 +75,7 @@ procedure TUserArray.Add(u:TUser);
 begin
      Context.Deep('TUserArray.Add');
 
-     if (count+1) > MAXIMUM_USER then raiseError('ERROR STACK OVERFLOW');
+     if (count+1) > MAXIMUM_USER then raiseError(S_STACKOVER);
      inc(count);
      users[count]:=u;
 
@@ -109,7 +109,7 @@ end;
 procedure TUserArray.Delete (i:byte);
 begin
      Context.Deep('TUserArray.Delete');
-     raiseError('NotImplemented ERROR');
+     raiseError(S_NOTIMPL);
      Context.Up;
 end;
 
@@ -360,9 +360,15 @@ var
    id:byte;
 begin
      Context.Deep('deleteUser');
-     Assign(tmp,TMPATH);Reset(tmp);
-     WriteLn(tmp,'database');
+
      {init}
+     {$I-}
+     Assign(tmp,TMPATH);
+     Rewrite(tmp);
+     WriteLn(tmp,'database');
+     if IOResult<>0 then raiseError('IO ERROR');
+     {$I+}
+
      skipToData; {openSession+}
      id:=0;
 
