@@ -34,6 +34,7 @@ const
   S_CRASHED = 'Приложение завершилось с ошибкой';
   S_RUNERR = 'Ошибка выполнения';
   S_STACKOVER = 'Переполнение буфера';
+  S_DELETEMSG = 'Выберите запись для удаления: ';
 implementation
 
 end.
