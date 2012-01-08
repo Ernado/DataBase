@@ -1,4 +1,4 @@
-{DataBase v1.0 by Razumov}
+{DataBase v1.1 by Razumov}
 program PDataBase;
 uses
   errors, menus;
