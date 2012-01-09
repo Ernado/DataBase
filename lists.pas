@@ -3,9 +3,9 @@ unit lists;
 
 interface
 uses errors;
-const MAXIMUM_LIST = 7;
+const MAXIMUM_LIST = 30;
 
-type TStringListArray = array [1..MAXIMUM_LIST] of string;
+type TStringListArray = array [1..MAXIMUM_LIST] of string[30];
 
 type TStringList = object
      sArray:TStringListArray;

@@ -14,8 +14,8 @@ const
   S_MAINMSG = 'Главное меню.';
   S_SORTFIELD = 'Поле сортировки:';
   S_SEARCHFIELD = 'Поле поиска:';
-  S_NAME = 'Имя';
-  S_SURNAME = 'Фамилия';
+  S_FIRSTNAME = 'Имя';
+  S_LASTNAME = 'Фамилия';
   S_DOB = 'Дата рожд.';
   S_CITY = 'Город';
   S_SCHOOL = 'Учебное заведение';

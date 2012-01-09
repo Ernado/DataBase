@@ -34,22 +34,24 @@ end;
 
 function fitString(s:string;n:word;direction:boolean):string;
 var
-  l:byte;
-  _e:string;
+  stringLength:byte;
+  errorMessage:string;
   i:word;
 begin
   context.Deep('fitString');
-  l:=length(s);
+  stringLength:=length(s);
 
-  if (n<l) then
+  if (n<stringLength) then
   begin
-     str(n,_e);
-     _e:='CANT FIT <'+s+ '> TO '+_e+' CHARS';
-     raiseError(_e);
+     str(n,errorMessage);
+     errorMessage:='CANT FIT <'+s+ '> TO '+errorMessage+' CHARS';
+     raiseError(errorMessage);
   end;
 
-  dec(n,l);
+  dec(n,stringLength);
+
   for i:=1 to n do if direction then s:=' '+s else s:=s+' ';
+
   fitString:=s;
   context.Up;
 end;

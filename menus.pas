@@ -97,14 +97,14 @@ end;
 procedure TMenu.Render;
 begin
   context.Deep('Render');
-  raiseError('NotImplemented');
+  raiseError(S_NOTIMPL);
   context.Up;
 end;
 
 function TMenu.ShowG:byte;
 begin
   context.Deep('ShowG');
-  raiseError('NotImplemented');
+  raiseError(S_NOTIMPL);
   context.Up;
 end;
 
@@ -119,8 +119,8 @@ begin
   {init}
   with menu.buttons do begin
        Init;
-       Add(fitString(S_NAME,BL,false));
-       Add(fitString(S_SURNAME,BL,false));
+       Add(fitString(S_FIRSTNAME,BL,false));
+       Add(fitString(S_LASTNAME,BL,false));
        Add(fitString(S_DOB,BL,false));
        Add(fitString(S_CITY,BL,false));
        Add(fitString(S_SCHOOL,BL,false));
@@ -234,8 +234,8 @@ begin
        for i:=1 to result.count do
            begin
                 s:=result.users[i].id + ' ' +
-                                      result.users[i].name + ' ' +
-                                      result.users[i].surname;
+                                      result.users[i].firstName + ' ' +
+                                      result.users[i].lastName;
 
                 Add(fitString(s,BL,false))
            end;
@@ -257,6 +257,7 @@ begin
        {render result}
        TextColor(white);
        result.Print;
+       WriteLn(S_SUCCES);
        WriteLn(S_ANYKEY);
        ReadKey;
   end;
@@ -273,8 +274,8 @@ begin
   context.Deep('ViewMenu');
   with menu.buttons do begin
        Init;
-       Add(fitString(S_NAME,BL,false));
-       Add(fitString(S_SURNAME,BL,false));
+       Add(fitString(S_FIRSTNAME,BL,false));
+       Add(fitString(S_LASTNAME,BL,false));
        {Add(fitString(S_DOB,BL,false));}
        Add(fitString(S_CITY,BL,false));
        Add(fitString(S_SCHOOL,BL,false));

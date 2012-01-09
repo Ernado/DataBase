@@ -6,15 +6,15 @@ uses
   crt, errors, helpers, locale;
 
 const
-  MAXIMUM_USER = 7;
+  MAXIMUM_USER = 30;
   DBFPATH = 'database.db';
   TMPATH = 'tmp.db';
 
 type TUser = object
-  name:string[15];
-  surname:string[15];
+  firstName:string[11];
+  lastName:string[11];
   school:string[20];
-  city:string[20];
+  city:string[11];
   dob: string[10];
   id: string[2];
   procedure Print;
@@ -64,8 +64,8 @@ end;
 procedure TUser.Print;
 begin
      WriteLn(fitString(id,2,true),'|',
-             fitString(name,11,true),'|',
-             fitString(surname,11,true),'|',
+             fitString(firstName,11,true),'|',
+             fitString(lastName,11,true),'|',
              fitString(dob,10,true),'|',
              fitString(city,11,true),'|',
              fitString(school,20,true),'|');
@@ -92,8 +92,8 @@ begin
          for j:=1 to count-1 do
              begin
               case n of
-                   1: begin a:=users[j].name; b:=users[j+1].name; end;
-                   2: begin a:=users[j].surname; b:=users[j+1].surname; end;
+                   1: begin a:=users[j].firstName; b:=users[j+1].firstName; end;
+                   2: begin a:=users[j].lastName; b:=users[j+1].lastName; end;
                    {3: begin a:=users[j].dob; b:=users[j+1].dob; end; }
                    3: begin a:=users[j].city; b:=users[j+1].city; end;
                    4: begin a:=users[j].school; b:=users[j+1].school; end;
@@ -152,8 +152,8 @@ begin
      with user do
      begin
           id:=S_ID;
-          name:=S_NAME;
-          surname:=S_SURNAME;
+          firstName:=S_FIRSTNAME;
+          lastName:=S_LASTNAME;
           dob:=S_DOB;
           city:=S_CITY;
           school:=S_SCHOOL;
@@ -162,8 +162,8 @@ begin
      with user do
      begin
           id:='==';
-          name:='===========';
-          surname:='===========';
+          firstName:='===========';
+          lastName:='===========';
           dob:='==========';
           city:='===========';
           school:='====================';
@@ -273,8 +273,8 @@ begin
      with user do
      begin
           id:='00';
-          name:=getLine;
-          surname:=getLine;
+          firstName:=getLine;
+          lastName:=getLine;
           dob:=getLine;
           school:=getLine;
           city:=getLine;
@@ -317,8 +317,8 @@ begin
        inc(id);
        str(id,user.id);
        case field of
-            1: s:=user.name;
-            2: s:=user.surname;
+            1: s:=user.firstName;
+            2: s:=user.lastName;
             3: s:=user.dob;
             4: s:=user.city;
             5: s:=user.school;
@@ -340,8 +340,8 @@ begin
 
      Append(dataFile);
      WriteLn(dataFile,'user');
-     WriteLn(dataFile,user.name);
-     WriteLn(dataFile,user.surname);
+     WriteLn(dataFile,user.firstName);
+     WriteLn(dataFile,user.lastName);
      WriteLn(dataFile,user.dob);
      WriteLn(dataFile,user.school);
      WriteLn(dataFile,user.city);
@@ -382,8 +382,8 @@ begin
           with user do
           begin
                WriteLn(tmp,'user');
-               WriteLn(tmp,name);
-               WriteLn(tmp,surname);
+               WriteLn(tmp,firstName);
+               WriteLn(tmp,lastName);
                WriteLn(tmp,dob);
                WriteLn(tmp,school);
                WriteLn(tmp,city);
@@ -391,7 +391,7 @@ begin
           end;
      until eof(dataFile);
      closeSession; Close(tmp);
-     Erase(dataFile);
+     erase(dataFile);
      rename(tmp,DBFPATH);
      Assign(dataFile,DBFPATH);
      Context.Up;
@@ -426,8 +426,8 @@ begin
   id:='00';
   TextColor(white);
   WriteLn(S_USERINPUT);
-  TextColor(LightGray); Write(S_NAME,': '); TextColor(white); ReadLn(name);
-  TextColor(LightGray); Write(S_SURNAME,': '); TextColor(white); ReadLn(surname);
+  TextColor(LightGray); Write(S_FIRSTNAME,': '); TextColor(white); ReadLn(firstName);
+  TextColor(LightGray); Write(S_LASTNAME,': '); TextColor(white); ReadLn(lastName);
   TextColor(LightGray); Write(S_DOB,': '); TextColor(white); ReadLn(dob);
   TextColor(LightGray); Write(S_CITY,': '); TextColor(white); ReadLn(city);
   TextColor(LightGray); Write(S_SCHOOL,': '); TextColor(white); ReadLn(school);
