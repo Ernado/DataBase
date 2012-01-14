@@ -179,6 +179,7 @@ begin
                 3: AddMenu;
                 4: ViewMenu;
                 5: online:=false;
+                0: online:=false;
         end;
   until not online ;
 
