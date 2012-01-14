@@ -1,4 +1,4 @@
-{Menus 0.5 by Razumov}
+{Menus 1.0 by Razumov}
 unit menus;
 
 interface
@@ -218,9 +218,49 @@ begin
 end;
 
 procedure DeleteMenu;
+var
+  s:string;
+  code,i:byte;
+  menu:TMenu;
+  result:TUserArray;
 begin
+  {init}
   context.Deep('DeleteMenu');
-  raiseError('NotImplemented ERROR');
+
+  {getAll}
+  dataBase.getRange(0,MAXIMUM_USER,result);
+
+  with menu.buttons do begin
+       Init;
+       for i:=1 to result.count do
+           begin
+                s:=result.users[i].id + ' ' +
+                                      result.users[i].name + ' ' +
+                                      result.users[i].surname;
+
+                Add(fitString(s,BL,false))
+           end;
+       Add(fitString(S_BACK,BL,false));
+  end;
+  menu.msg:=S_DELETEMSG;
+
+
+  {render}
+  code := menu.Show; ClrScr;
+
+  {logic}
+  if (code <> menu.buttons.count) then
+  begin
+       str(code,s);
+       dataBase.deteleUser(s);
+       database.getRange(0,MAXIMUM_USER,result);
+
+       {render result}
+       TextColor(white);
+       result.Print;
+       WriteLn(S_ANYKEY);
+       ReadKey;
+  end;
   context.Up;
 end;
 
@@ -249,10 +289,10 @@ begin
   code := menu.Show; ClrScr;
 
   {logic}
-  if (code <> 7) then
+  if (code <> 6) then
   begin
        dataBase.getRange(0,MAXIMUM_USER,result);
-       if (code <> 6) then result.Sort(code,true);
+       if (code <> 5) then result.Sort(code,true);
        {render result}
        TextColor(white);
        result.Print;

@@ -2,7 +2,7 @@
 unit errors;
 
 interface
-uses crt;
+uses crt, locale;
 
 const MAXIMUM_CONTEXT = 10;
 
@@ -29,17 +29,17 @@ begin
      ClrScr;
      TextBackGround(0);
      textColor(12);
-     WriteLn('DATABASE APPLICATION CRASHED');
-     WriteLn('RUNTIME ERROR');
+     WriteLn(S_CRASHED);
+     WriteLn(S_RUNERR);
      textColor(15);
      Write(msg);
      textColor(8);
-     Write(' on ');
+     Write(S_ON);
      textColor(15);
      context.Print;
      WriteLn;
      textColor(8);
-     WriteLn('PRESS ANY KEY TO EXIT');
+     WriteLn(S_ANYKEY);
      ReadKey;
      halt(10);
 end;
@@ -52,7 +52,7 @@ end;
 
 procedure TContextList.Deep(s:string);
 begin
-     if (count+1) > MAXIMUM_CONTEXT then raiseError('ERROR STACK OVERFLOW');
+     if (count+1) > MAXIMUM_CONTEXT then raiseError(S_STACKOVER);
      inc(count);
      eArray[count]:=s;
 end;
