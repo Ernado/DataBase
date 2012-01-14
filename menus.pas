@@ -67,7 +67,7 @@ begin
              #80: if (focus = buttons.count) then focus := 1 else inc(focus);
              #72: if (focus = 1) then focus := buttons.count else dec(focus);
              #13: begin online:=false; Show:=focus; end;
-             #8 : begin online:=false; Show:=0; end;
+             #27 : begin online:=false; Show:=0; end;
         end;
   until not online;
   context.Up;
@@ -133,6 +133,7 @@ begin
   code := menu.Show;
 
   {logic}
+  if (code = 6) then code := 0;
   if (code <> 6) then
   begin
        menu.msg:=S_PROMT;
@@ -178,8 +179,7 @@ begin
                 2: DeleteMenu;
                 3: AddMenu;
                 4: ViewMenu;
-                5: online:=false;
-                0: online:=false;
+                5,0: online:=false;
         end;
   until not online ;
 
@@ -247,9 +247,9 @@ begin
 
   {render}
   code := menu.Show; ClrScr;
-
+  if (code = menu.buttons.count) then code := 0;
   {logic}
-  if (code <> menu.buttons.count) then
+  if (code <> 0) then
   begin
        str(code,s);
        dataBase.deteleUser(s);
@@ -290,7 +290,8 @@ begin
   code := menu.Show; ClrScr;
 
   {logic}
-  if (code <> 6) then
+  if (code = 6) then code := 0;
+  if (code <> 0)  then
   begin
        dataBase.getRange(0,MAXIMUM_USER,result);
        if (code <> 5) then result.Sort(code,true);
