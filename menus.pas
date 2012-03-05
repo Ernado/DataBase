@@ -1,14 +1,23 @@
-{Menus 1.0 by Razumov}
+{Menus 1.1 by Razumov}
 unit menus;
 
 interface
-uses errors, lists, crt, locale, helpers{, graph}, UDB;
+uses errors, lists, crt, locale, helpers, UDB;
 
 const
-  BUTTON_COLOR = 7;
-  TEXT_COLOR = 0;
-  FOCUS_COLOR = 9;
-  BL = 20;
+  {Color codes}
+  BUTTON_COLOR = 7; {Button color}
+  TEXT_COLOR   = 0; {Label color}
+  FOCUS_COLOR  = 9; {Focused button label color}
+
+  {Key codes}
+  KEY_ENTER  = #13; {Enter button}
+  KEY_UP     = #80; {Up arrow}
+  KEY_ESC    = #27; {Escape button}
+  KEY_DOWN   = #72; {Down arrow}
+
+  {Default values}
+  BL          = 20; {Button length in chars}
 
 type TMenu = object
      buttons:TStringList;
@@ -18,10 +27,8 @@ type TMenu = object
      msg:string[30];
      private
      procedure Render;
-     function ShowG:byte;
      function Show:byte;
      function ShowInput:string;
-     {procedure ChangeMode;    }
 end;
 
 var dataBase:TDataBase;
@@ -44,30 +51,22 @@ begin
   focus := 1; online:=true; {init}
   repeat
         {render}
-        ClrScr;
-        textColor(white);
-        WriteLn(S_PROGRAMNAME);
-        if (msg<>'') then WriteLn(msg);
-        for i:=1 to buttons.count do
+        ClrScr; textColor(white);
+        WriteLn(S_PROGRAMNAME);          {Write program name}
+        if (msg<>'') then WriteLn(msg);  {Write message}
+        for i:=1 to buttons.count do     {Render buttons}
         begin
-             textColor(TEXT_COLOR);
-             TextBackGround(BUTTON_COLOR);
-             if (i=focus) then
-             begin
-                  TextColor(TEXT_COLOR);
-                  TextBackGround(FOCUS_COLOR);
-             end;
-             WriteLn(buttons.Get(i));
+             textColor(TEXT_COLOR); TextBackGround(BUTTON_COLOR); {Default}
+             if (i=focus) then TextBackGround(FOCUS_COLOR);       {Focus}
+             WriteLn(buttons.Get(i));                             {Write Label}
         end;
-        TextBackGround(0);
-        TextColor(white);
-        {input}
-        c:=ReadKey;
-        case c of
-             #80: if (focus = buttons.count) then focus := 1 else inc(focus);
-             #72: if (focus = 1) then focus := buttons.count else dec(focus);
-             #13: begin online:=false; Show:=focus; end;
-             #27 : begin online:=false; Show:=0; end;
+        TextBackGround(0); TextColor(white); {Reset}
+        c:=ReadKey; {input}
+        case c of   {Process input}
+             KEY_UP   : if (focus=buttons.count) then focus:=1 else inc(focus);
+             KEY_DOWN : if (focus=1) then focus:=buttons.count else dec(focus);
+             KEY_ENTER: begin online:=false; Show:=focus; end;
+             KEY_ESC  : begin online:=false; Show:=0; end;
         end;
   until not online;
   context.Up;
@@ -101,13 +100,7 @@ begin
   context.Up;
 end;
 
-function TMenu.ShowG:byte;
-begin
-  context.Deep('ShowG');
-  raiseError(S_NOTIMPL);
-  context.Up;
-end;
-
+{User search menu}
 procedure SearchMenu;
 var
   menu:TMenu;
@@ -129,15 +122,15 @@ begin
   menu.msg:=S_SEARCHFIELD;
   result.init;
 
-  {render}
+  {render & interact}
   code := menu.Show;
 
   {logic}
-  if (code = 6) then code := 0;
-  if (code <> 6) then
+  if (code = 6) then code := 0;  {Exit code}
+  if (code <> 6) then            {Skip the processing if exit code}
   begin
        menu.msg:=S_PROMT;
-       dataBase.getBySearch(menu.ShowInput,code,result);
+       dataBase.getBySearch(menu.ShowInput,code,result); {Query the db}
 
        {render result}
        if (result.count>0) then result.Print else WriteLn(S_NOTFOUND);
@@ -148,6 +141,7 @@ begin
   context.Up;
 end;
 
+{Main menu of the database}
 procedure MainMenu;
 var
   menu:TMenu;
@@ -168,20 +162,20 @@ begin
   dataBase.init;
   online:=true;
 
-  {mainCycle}
+  {Main cycle}
   repeat
         {render}
         code := menu.Show;
 
         {logic}
         case code of
-                1: SearchMenu;
-                2: DeleteMenu;
-                3: AddMenu;
-                4: ViewMenu;
-                5,0: online:=false;
+                1:  SearchMenu;
+                2:  DeleteMenu;
+                3:  AddMenu;
+                4:  ViewMenu;
+                5,0:online:=false;
         end;
-  until not online ;
+  until not online;
 
   context.Up;
 end;
@@ -225,7 +219,7 @@ var
   result:TUserArray;
 begin
   {init}
-  context.Deep('DeleteMenu');
+  context.Deep('DeleteMenu'); result.Init;
 
   {getAll}
   dataBase.getRange(0,MAXIMUM_USER,result);
@@ -248,6 +242,7 @@ begin
   {render}
   code := menu.Show; ClrScr;
   if (code = menu.buttons.count) then code := 0;
+
   {logic}
   if (code <> 0) then
   begin
@@ -277,7 +272,6 @@ begin
        Init;
        Add(fitString(S_FIRSTNAME,BL,false));
        Add(fitString(S_LASTNAME,BL,false));
-       {Add(fitString(S_DOB,BL,false));}
        Add(fitString(S_CITY,BL,false));
        Add(fitString(S_SCHOOL,BL,false));
        Add(fitString(S_NUMBER,BL,false));
@@ -305,4 +299,3 @@ begin
 end;
 
 end.
-
