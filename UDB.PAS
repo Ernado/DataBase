@@ -1,4 +1,4 @@
-{UDataBase 1.0 by Razumov}
+{UDataBase 1.1 by Razumov}
 unit UDB;
 
 interface
@@ -7,8 +7,8 @@ uses
 
 const
   MAXIMUM_USER = 30;
-  DBFPATH = 'database.db';
-  TMPATH = 'tmp.db';
+  DBFPATH = 'database.db';  {Database file path}
+  TMPATH = 'tmp.db';        {Temp file path}
 
 type TUser = object
   firstName:string[11];
@@ -19,6 +19,7 @@ type TUser = object
   id: string[2];
   procedure Print;
   procedure Input;
+  constructor Init;
 end;
 
 type TUserArray = object
@@ -27,7 +28,7 @@ type TUserArray = object
   constructor Init;
   procedure Get(i:byte;var u:TUser);
   procedure Add(u:TUser);
-  procedure Delete(i:byte);
+  {procedure Delete(i:byte); }
   procedure Print;
   procedure Sort(n:byte;direction:boolean);
   private
@@ -71,6 +72,16 @@ begin
              fitString(school,20,true),'|');
 end;
 
+constructor TUser.Init;
+begin
+     firstname := 'Null';
+     lastName := 'Null';
+     school := 'Null';
+     city := 'Null';
+     dob := '01.01.1970';
+     id := '00';
+end;
+
 procedure TUserArray.Add(u:TUser);
 begin
      Context.Deep('TUserArray.Add');
@@ -106,12 +117,12 @@ begin
      Context.Up;
 end;
 
-procedure TUserArray.Delete (i:byte);
+{procedure TUserArray.Delete (i:byte);
 begin
      Context.Deep('TUserArray.Delete');
      raiseError(S_NOTIMPL);
      Context.Up;
-end;
+end;}
 
 procedure TUserArray.Swap(i,j:byte);
 var
@@ -308,7 +319,7 @@ begin
 
      {init}
      skipToData; {openSession+}
-     users.init;
+     users.init; user.Init;;
      id:=0;
 
      {logic}
@@ -322,7 +333,7 @@ begin
             3: s:=user.dob;
             4: s:=user.city;
             5: s:=user.school;
-       else raiseError('UNKNOWN FIELD');
+       else raiseError('ARGUMENT OUT OF BOUNDS: UNKNOWN FIELD');
        end;
        if (s=promt) then users.Add(user);
      until eof(dataFile) or (users.count=MAXIMUM_USER);
@@ -371,6 +382,7 @@ begin
 
      skipToData; {openSession+}
      id:=0;
+     user.Init;
 
      {logic}
 
@@ -405,7 +417,7 @@ begin
      Context.Deep('TDataBase.getRange');
 
      skipToData;
-     i:=0; users.init;
+     i:=0; users.init; user.Init;
 
      repeat
        getUser(user);
